@@ -40,7 +40,11 @@
     "start": "BROWSER='Google Chrome Dev' craco start",
     "build": "craco build",
     "test": "craco test",
-    "build-no-map": "GENERATE_SOURCEMAP=false craco build"
+    "build-no-map": "GENERATE_SOURCEMAP=false craco build",
+    "deploy": "node ./scripts/deploy-build.js",
+    "deploy:dev": "node ./scripts/deploy-build.js --target dev",
+    "build:deploy": "npm run build && npm run deploy --",
+    "build:deploy:dev": "npm run build && npm run deploy:dev --"
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",

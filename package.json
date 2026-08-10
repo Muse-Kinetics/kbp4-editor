@@ -7,6 +7,12 @@
     "apps/desktop",
     "packages/kbp4-js-api"
   ],
+  "scripts": {
+    "deploy:web": "npm run deploy --workspace apps/web --",
+    "deploy:web:dev": "npm run deploy:dev --workspace apps/web --",
+    "build:deploy:web": "npm run build:deploy --workspace apps/web --",
+    "build:deploy:web:dev": "npm run build:deploy:dev --workspace apps/web --"
+  },
   "engines": {
     "node": ">=24.0.0",
     "npm": ">=10.0.0"

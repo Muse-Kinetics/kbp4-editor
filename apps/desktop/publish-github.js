@@ -117,6 +117,30 @@ if (!releaseExists) {
     console.log(`>> release ${tag} already exists on ${repo}; uploading/replacing ${platform} assets`);
 }
 
+// GitHub replaces spaces in uploaded asset filenames with dots (e.g. "K-Board
+// Pro 4 Editor-…dmg" -> "K-Board.Pro.4.Editor-…dmg"). electron-builder's
+// latest-mac.yml references the DMG by its build-time name, so electron-updater
+// would construct a 404 download URL. Rewrite the yml's dmg url/path to the
+// dot-form GitHub actually serves before uploading. (mac only.)
+function normalizeMacYmlForGithub() {
+    const ymlPath = path.join(releaseDir, "latest-mac.yml");
+    if (!fs.existsSync(ymlPath)) return;
+    const githubDmg = `${productName.replace(/ /g, ".")}-${version}-universal.dmg`;
+    const yml = fs.readFileSync(ymlPath, "utf8");
+    const patched = yml.replace(
+        /((?:url|path):\s*)\S*-universal\.dmg/g,
+        (match, prefix) => `${prefix}${githubDmg}`,
+    );
+    if (patched !== yml) {
+        fs.writeFileSync(ymlPath, patched);
+        console.log(`>> normalized latest-mac.yml dmg url -> ${githubDmg} (GitHub dot-form)`);
+    }
+}
+
+if (platform === "mac") {
+    normalizeMacYmlForGithub();
+}
+
 // --clobber so re-running for the same platform replaces assets instead of failing.
 gh(["release", "upload", tag, ...artifactPaths, "-R", repo, "--clobber"]);
 
