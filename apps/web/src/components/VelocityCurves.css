@@ -1,0 +1,53 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.velocity-curve-buttons {
+  display: grid;
+  grid-template-columns: repeat(11, 2fr) 1fr;
+  grid-gap: 5px;
+  margin-bottom: 10px;
+}
+.velocity-curve-buttons::before {
+  content: 'Template Curves';
+  position: absolute;
+  top: -15px;
+  left: 0px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.velocity-curves-editor button {
+  border: 1px solid white;
+  border-radius: 3px;
+}
+.velocity-curves-editor button.toggled {
+  background-color: #999;
+}
+.user-curve-dialog {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, .5fr) 0.5fr repeat(2, 1fr);
+  grid-gap: 5px;
+  margin-top: 10px;
+  align-items: end;
+}
+.user-curve-dialog .label {
+  line-height: 30px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.user-curve-dialog.revertable .save-and-send, .user-curve-dialog.revertable .reset {
+  background-color: #80000075;
+}
+
+.y-axis-position {
+  position: absolute;
+  background-color: #fffd;
+  color: #333;
+  font-size: 12px;
+  padding: 0 5px;
+  border-radius: 3px;
+  right: 0px;
+  top: -20px;
+}

@@ -1,0 +1,63 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+section {
+  position: relative;
+  border: 3px solid #646464;
+  border-radius: 3px;
+  padding: 10px;
+  box-shadow: 0 0 20px #111;
+  margin-top: 40px;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 10px;
+
+  user-select: none;
+}
+.electron section {
+  padding: 10px 13px;
+  border: none;
+  box-shadow: none;
+}
+section h2 {
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 100;
+  margin: 0px 0 10px 0;
+}
+section h4 {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 100;
+  margin: 0px 0 10px 0;
+}
+label {
+  font-size: 12px;
+}
+label input, label button {
+  margin-top: 5px;
+  border-radius: 3px;
+}
+label.off-label {
+  opacity: .45;
+}
+.has-cc select {
+  background-position: calc(100% - 5px) 65%;
+}
+.zone-curves select {
+  background-position: calc(100% - 5px) 65%;
+}
+.lower-zone-active select {
+  border: 1px solid #04aef0;
+}
+.upper-zone-active select {
+  border: 1px solid #9a6aad;
+}
+.lower-zone-active .button, .lower-zone-active .react-numeric-input input {
+  border: 1px solid #04aef0;
+  border-radius: 3px;
+}
+.upper-zone-active .button, .upper-zone-active .react-numeric-input input {
+  border: 1px solid #9a6aad;
+  border-radius: 3px;
+}

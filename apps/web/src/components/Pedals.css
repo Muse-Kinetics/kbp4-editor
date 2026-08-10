@@ -1,0 +1,128 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.pedals {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 2 / 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 5px;
+  padding-bottom: 3px;
+}
+.pedals::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: 1px;
+  border-top: 1px dashed #efefef33;
+}
+.pedal {
+  position: relative;
+  padding: 48px 13px 0px 43px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-repeat: no-repeat;
+  transition: 800ms all ease;
+}
+.pedal:hover {
+  filter: drop-shadow(0px 0px 5px #111);
+  text-shadow: 0 0 5px #111;
+}
+.pedal-0 {
+  background-image: url(../svg/pedal-sustain-icon.svg);
+  background-size: 45% 45%;
+  background-position: 74px 65px;
+  padding-left: 31px;
+  padding-right: 8px;
+}
+.pedal-1 {
+  background-image: url(../svg/pedal-expression-icon.svg);
+  background-size: 55% 55%;
+  background-position: 71px 44.5px;
+  padding-left: 28px;
+  padding-right: 10px;
+}
+.pedal-0::before {
+  content: 'Switch (P1)';
+  position: absolute;
+  font-size: 20px;
+  font-weight: 100;
+  top: 30px;
+  left: 10px;
+}
+.pedal-1::before {
+  content: 'Expression (P2)';
+  position: absolute;
+  font-size: 20px;
+  font-weight: 100;
+  top: 30px;
+  left: 7px;
+}
+.pedal-settings {
+  grid-column: 2 / 2;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  justify-content: end;
+}
+.pedals-label {
+  grid-column: 1 / -1;
+  grid-row: 1 / 1;
+}
+.pedal-select-label {
+  grid-column: 1/ -1;
+}
+.pedal-mode-label {
+  grid-column: 1 / 3;
+}
+.pedal-mode-label {
+  grid-column: 1 / -1;
+}
+.pedal-0 .pedal-mode-label.has-cc  {
+  grid-column: 1 / 2;
+}
+.pedal-1 .pedal-mode-label.has-cc  {
+  grid-column: 1 / 2;
+}
+.pedal-cc-label {
+  grid-column: 2 / 2;
+}
+.pedal-0 .pedal-cc-label {
+  grid-column: 3 / 2;
+}
+.pedal.off {
+  opacity: 0.6;
+}
+.pedal select, .pedal input {
+  transition: 800ms border ease;
+}
+.pedal.dual-zone .react-numeric-input {
+  border-radius: 3px;
+  padding: 1px;
+  margin-top: 5px;
+  background-image: linear-gradient(to right, #00adef 0%, #9a6aad 70%);
+}
+.pedal.dual-zone .react-numeric-input input:focus {
+  background-color: #222222;
+}
+.pedal.lower.off select, .pedal.lower.off input, .pedal.upper.off select, .pedal.upper.off input {
+  border-color: #777;
+}
+.pedal.lower:not(.off) select, .pedal.lower:not(.off) input {
+  border-color: #00adef;
+}
+.pedal.upper:not(.off) select, .pedal.upper:not(.off) input {
+  border-color: #9a6aad;
+}
+.pedal.dual-zone:not(.off) input {
+  border: 0;
+  margin-top: 0;
+}
+.pedal.dual-zone:not(.off) select {
+  border-color: transparent;
+  border-image: linear-gradient(to right, #00adef 0%, #9a6aad 70%);
+  border-image-slice: 1;
+}

@@ -1,0 +1,96 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "KBP4: Build Desktop (Sync Renderer)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "sync-renderer"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Launch Desktop",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "start"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "KBP4: Build Web",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build"],
+      "options": { "cwd": "${workspaceFolder}/apps/web" },
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Start Web Dev Server",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "start"],
+      "options": { "cwd": "${workspaceFolder}/apps/web" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "KBP4: Make macOS Installer (Signed, Skip Notarize)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "package-mac"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Signed universal DMG, notarization skipped — fast local check.",
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Make macOS Installer (Signed + Notarized)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "package-mac-dist"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Full release build: sync-renderer → sign app → package DMG → sign DMG → notarize + staple → regenerate channel metadata. Requires .env with APPLE_KEYCHAIN_PROFILE.",
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Notarize Existing macOS DMG",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "notarize-dmg"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Reuses the already-built app + DMG in release/ and signs/notarizes/staples it. Requires .env with APPLE_KEYCHAIN_PROFILE.",
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Make Windows Installer (Signed)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "package-win"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Requires local signtool.exe and the KMI Music, Inc. code-signing cert (see apps/desktop/signWindows.js).",
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Publish macOS Release to GitHub",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "publish-github-mac"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Uploads the already-built, already-tested DMG from release/. Build + test it first. Requires gh CLI authenticated.",
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Publish Windows Release to GitHub",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "publish-github-win"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Uploads the already-built, already-tested installer from release/. Build + test it first. Requires gh CLI authenticated.",
+      "problemMatcher": []
+    }
+  ]
+}

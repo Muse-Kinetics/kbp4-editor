@@ -1,0 +1,247 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.bars-caps {
+  position: relative;
+  grid-column: 1 / 8;
+  grid-row: 1 / 1;
+}
+
+.split-slider {
+  padding: 10px 15px;
+  transition: all 1s;
+  opacity: 1;
+  background-color: #2d2d2d;
+  z-index: 1;
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+.split-slider.zone-a {
+  padding-left: 0;
+}
+.split-slider.zone-b {
+  padding-right: 0;
+}
+.slider-rail {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #333
+}
+.slider-handles {
+  cursor: grab;
+  transition: all 0.5s ease-out;
+}
+.slider-handles .A {
+  left: 55%;
+}
+.split-slider:hover .slider-handles .A {
+  left: calc(11% + 11px);
+}
+.split-slider:hover .slider-handles, .slider-handles:hover, .slider-handles:focus, .slider-handles:active {
+  cursor: grab;
+  opacity: 1;
+}
+.slider-handles .A::before {
+  content: 'A';
+  position: absolute;
+  left: 4px;
+  top: -2px;
+}
+.slider-handles .B::before {
+  content: 'B';
+  position: absolute;
+  left: 4px;
+  top: -1.5px;
+}
+.split-slider .slider-tracks {
+  opacity: 1;
+  transition: all 0.5s ease-out;
+}
+/* off */
+.split-slider.off {
+  opacity: 1;
+}
+/* autohide */
+.autohide .slider-handles {
+  opacity: 0;
+}
+.autohide:hover .slider-handles {
+  opacity: 1;
+}
+
+.split-slider.off .slider-handles .A {
+  border-color: #ccc !important;
+  color: rgba(255,255,255,0.5)
+}
+.split-slider.off .slider-handles .B {
+  border-color: #ccc !important;
+  color: rgba(255,255,255,0.5)
+}
+
+/* Bars */
+.bars svg {
+  position: relative;
+  display: block;
+  pointer-events: none;
+  background-color: #2d2d2d;
+  z-index: 1;
+}
+path {
+  fill: #ddd;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.bars-octave-lownote {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+
+.low-note-shift {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 90px;
+  grid-column: 1 / 2;
+}
+.low-note-shift label {
+  grid-column: span 3;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.low-note {
+  text-align: center;
+  font-size: 20px;
+  padding: 0 5px;
+  width: 40px;
+}
+
+.octave-shift {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 90px;
+  grid-column: 7 / -1;
+}
+.octave-shift label {
+  grid-column: span 3;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.octave {
+  text-align: center;
+  font-size: 20px;
+  padding: 0 5px;
+  width: 40px;
+}
+.bar-info {
+  font-size: 18px;
+  grid-column: 2/7;
+  text-align: center;
+  font-weight: 100;
+  transition: all 500ms;
+  opacity: 0;
+}
+.bar-info.active {
+  opacity: 1;
+}
+.caps-splits {
+  position: relative;
+  padding-top: 0px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 10px;
+}
+.caps-splits h4 {
+  grid-column: 1 / -1;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.bars-gap-cap-settings {
+  grid-column: 1 / 5;
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 2fr;
+  grid-gap: 0 10px;
+  align-items: end;
+  padding-right: 3px;
+}
+
+.bars-gap-cap-settings h4 span {
+  font-size: 12px;
+}
+.bars-gap-cap-settings .off .react-numeric-input input {
+  background-position: -45px 2px;
+  background-size: 230% 85%;
+}
+.gap-curves-label {
+  position: relative;
+  margin-left: 15px;
+}
+.gap-curves-label::before {
+  content: ' · ';
+  position: absolute;
+  left: -14px;
+  top: 28px;
+}
+.bars-gap-cap-settings .disable-all {
+  margin-top: 21px;
+}
+.bars-split-point-settings {
+  position: relative;
+  grid-column: 5 / -1;
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+  grid-gap: 0 10px;
+  align-items: end;
+  padding-left: 15px;
+}
+.bars-split-point-settings::before {
+  content: '';
+  position: absolute;
+  top: 13px;
+  left: 0;
+  width: 1px;
+  height: calc(100% - 5px);
+  border-left: 1px dotted rgba(255, 255, 255, 0.5);
+}
+.bars-split-point-settings h4 {
+  margin-top: 1px;
+  text-align: center;
+}
+.zone-select {
+  grid-column: 1 / 1;
+  padding-top: 24px;
+  margin-bottom: 0;
+  padding-right: 7px;
+}
+.zone-select button.square {
+  box-shadow: inset 0 0 2px #222;
+}
+.zone-select button.square.toggled {
+  box-shadow: inset 0 0 2px #333;
+}
+.zone-splits {
+  position: relative;
+  grid-column: 2 / 2;
+  padding-left: 5px;
+}
+.zone-splits::before {
+  content: ' · ';
+  position: absolute;
+  left: -8px;
+  top: 28px;
+}
+.zone-splits .off .react-numeric-input input {
+  background-position: -37px 2px;
+  background-size: 230% 85%;
+}
+.zone-curve {
+  grid-column: 3 / 3;
+}
+.zone-channels {
+  grid-column: 4 / -1;
+}

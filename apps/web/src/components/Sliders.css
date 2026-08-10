@@ -1,0 +1,120 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.sliders {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0px;
+}
+.slider {
+  display: grid;
+  grid-template-rows: 0.5fr 1fr;
+  padding: 16px 10px 0 10px;
+  grid-gap: 26px 0px;
+  align-items:flex-start;
+  transition: 800ms all ease;
+}
+.slider:hover {
+  filter: drop-shadow(0px 0px 5px #111);
+}
+.slider h3 {
+  font-weight: 400;
+  margin: 0 0 0px 0;
+  background-color: #777777ef;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 16px;
+  border-radius: 3px;
+  text-align: center;
+  width: 100%;
+  transition: 500ms all ease;
+}
+.slider h3:hover {
+  text-shadow: 0 0 25px #111;
+}
+.slider.lower:not(.off) h3 {
+  background-color: #00adef;
+  color: #ffffffcc;
+}
+.slider.upper:not(.off) h3 {
+  background-color: #9a6aad;
+  color: #ffffffcc;
+}
+.slider.no-zone:not(.off) h3 {
+  background-color: #ffffff;
+  color: #333;
+}
+.slider.dual-zone:not(.off) h3 {
+  background-image: linear-gradient(to right, #00adef 0%, #9a6aad 70%);
+  color: #ffffffcc;
+}
+.sliders-label {
+  grid-column: 1 / -1;
+  grid-row: 1 / 1;
+}
+.sliders-label:hover {
+  text-shadow: 0 0 5px #111;
+}
+.slider-select-label {
+  grid-column: 1/ -1;
+}
+.slider-settings {
+  grid-column: 1 / -1;
+  /* grid-row: 3 / 3; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+.off .slider-mode-label, .no-zone .slider-mode-label {
+  grid-column: 1 / -1;
+}
+.slider-mode-label {
+  grid-column: 1 / 3;
+}
+.has-cc .slider-mode-label {
+  grid-column: 1 / 1;
+}
+.slider-cc-label {
+  grid-column: 2 / 3;
+  align-self: end;
+}
+.slider select, .slider input {
+  transition: 500ms border ease;
+}
+.slider select {
+  margin-top: 3px;
+}
+.slider.off select, .slider.lower.off select, .slider.lower.off input, .slider.upper.off select, .slider.upper.off input {
+  border-color: #777;
+}
+.slider.lower:not(.off) select, .slider.lower:not(.off) input {
+  border-color: #00adef;
+}
+.slider.upper:not(.off) select, .slider.upper:not(.off) input {
+  border-color: #9a6aad;
+}
+.slider.no-zone select {
+  border-color: #fff;
+}
+.slider.dual-zone:not(.off) select {
+  content: '';
+  border-color: transparent;
+  border-image: linear-gradient(to right, #00adef 0%, #9a6aad 70%);
+  border-image-slice: 1;
+  border-radius: 3px;
+}
+.slider.dual-zone .react-numeric-input {
+  border-radius: 3px;
+  padding: 1px;
+  margin-top: 3px;
+  background-image: linear-gradient(to right, #00adef 0%, #9a6aad 70%);
+}
+.slider.dual-zone .react-numeric-input input  {
+  margin-top: 0px;
+  border: 0px;
+}
+.slider.dual-zone .react-numeric-input input:focus {
+  background-color: #222222;
+}

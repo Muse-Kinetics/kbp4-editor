@@ -1,0 +1,80 @@
+1.2.0.7 TODO:
+Added Absolute and Relative PolyAT modes to the Y-Axis
+The SysEx message to set the Y axis mode is 240 0 1 95 122 37 1 13 60 $zone 1 $ymode 0 0 100 0 0 74 0 0 0 247 where $ymode = 7 is PolyAT Absolute and $ymode = 8 is PolyAT relative, values 0-6 remain unchanged. $zone is the zone value, and we should test that the correct message is sent for each zone in the interface.
+240, 0, 1, 95, 122, 37, 1, 13, 60, $zone 1 $ymode 0 0 100 0 0 74 0 0 0 247
+240, 0, 1, 95, 122, 37, 1, 13, 60, 0, 1, 7, 0, 0, 100, 0, 0, 74, 64, 0, 0, 247
+
+
+API V2
+
+install: K-Board Pro 4 API
+  npm i https://andrejkmi@bitbucket.org/andrejkmi/k-board-pro-4-js-api.git#v2
+  npm i git+ssh://andrejkmi@bitbucket.org/andrejkmi/k-board-pro-4-js-api.git#v2
+
+TOOO:
+  refactor buildSendPreset
+    evaluate & compare methods: [
+      buildParamObject,
+      buildPitchBendParam,
+      buildZonedParamObjects,
+      paramObjectFactory,
+      buildZonedGlobalParam,
+      buildGlobalParam
+    ]
+
+  custom port port names:
+    // run _init
+    // set onmidimessage
+    customPortNames({
+      device: 'KBP4',
+      bootloader: 'Boots'
+    })
+
+device API methods:
+
+  reset():
+    resets [presets, userCurves, globals] to factory settings
+    device return void
+
+  getFirmwareVersion(): IMPLEMENTED
+    requests firmware/bootloader version
+    device return "1.0.0.0.1.0.0" (4-digit firmware, 3-digit bootloader)
+
+  enterBootloader(): IMPLEMENTED
+    puts the device into bootloader mode
+    device return void
+
+
+  loadPreset(presetIndex): IMPLEMENTED
+    loads flash preset into edit buffer
+    device return void
+
+  savePreset(memoryIndex): IMPLEMENTED
+    saves edit buffer to flash [1-4]
+    device return void
+
+  sendPreset(presetObject): IMPLEMENTED
+    sends editor preset to edit-buffer
+    device return void
+
+
+  getPreset(presetIndex): IMPLEMENTED
+    requests device preset
+    device return preset_start_index, preset_params, preset_end_index
+
+  getUserCurve(curveIndex):
+    requests user defined curve / velocity table
+    device return
+
+  getParam(paramName): // not sure if this will be used but might be useful to have
+    requests preset param by name
+    device return param values for both zones
+
+
+  setParam(paramName, paramValue): IMPLEMENTED
+    sends preset param to device
+    device return void
+
+  setUserCurve([127 value array]):
+    sends device user curve
+    device return void

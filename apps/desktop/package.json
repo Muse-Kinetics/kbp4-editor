@@ -1,0 +1,82 @@
+{
+  "name": "kbp4-editor-desktop",
+  "productName": "K-Board Pro 4 Editor",
+  "version": "1.4.0",
+  "description": "Electron desktop editor for K-Board Pro 4",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development electron .",
+    "sync-renderer": "node sync-renderer.js",
+    "package-mac": "node release-mac.js --skip-notarize",
+    "package-mac-dist": "node release-mac.js",
+    "notarize-dmg": "node release-mac.js --skip-build --skip-package",
+    "package-win": "npm run sync-renderer && electron-builder build --win --x64 --publish never",
+    "publish-github-mac": "node publish-github.js --platform mac",
+    "publish-github-win": "node publish-github.js --platform win"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.0"
+  },
+  "devDependencies": {
+    "@electron/notarize": "^2.3.2",
+    "electron": "^29.4.6",
+    "electron-builder": "^23.0.3",
+    "dotenv": "^16.4.5",
+    "js-yaml": "^4.1.0",
+    "node-fetch": "^3.3.2",
+    "octokit": "^3.1.2"
+  },
+  "build": {
+    "productName": "K-Board Pro 4 Editor",
+    "appId": "com.kmimusic.KBoardPro4Editor",
+    "copyright": "(c) 2026 KMI Music, Inc.",
+    "electronVersion": "29.4.6",
+    "npmRebuild": false,
+    "forceCodeSigning": false,
+    "files": [
+      "index.js",
+      "menu.js",
+      "updater.js",
+      "preload.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Muse-Kinetics",
+        "repo": "kbp4-editor"
+      },
+      {
+        "provider": "generic",
+        "url": "https://files.keithmcmillen.com/products/k-board-pro-4/editor/${os}"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.music",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.plist",
+      "darkModeSupport": true,
+      "target": [
+        { "target": "dmg", "arch": ["universal"] }
+      ]
+    },
+    "dmg": {
+      "sign": false,
+      "contents": [
+        { "x": 130, "y": 220 },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "win": {
+      "certificateSha1": "66AEF8ACBDC187562BA7AF2FEC2B070DE1612267",
+      "target": [{ "target": "nsis", "arch": ["x64"] }]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  }
+}

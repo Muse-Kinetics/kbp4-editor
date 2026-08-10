@@ -1,0 +1,44 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.react-numeric-input {
+  position: relative;
+  display: block;
+}
+.react-numeric-input input {
+  outline: none;
+  padding-right: 4px;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 300;
+  -webkit-app-region: no-drag;
+}
+.react-numeric-input btnUp, .react-numeric-input btnDown {
+  display: none;
+}
+.react-numeric-input .midi-note input:first-child {
+  border-right: none;
+  padding-right: 0;
+}
+.react-numeric-input .midi-note input:last-child {
+  border-left: none;
+  padding-left: 0;
+}
+/* off */
+.off .react-numeric-input input {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0);
+  background-color: #4a4a4a;
+  background-image: url(../../svg/off-bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.react-numeric-input input[disabled] {
+  cursor: not-allowed;
+  opacity: .65;
+  filter: opacity(.65);
+  box-shadow: none;
+}
+.react-numeric-input input:focus {
+  /* filter:drop-shadow(0 0 5px #000); */
+  background-color: #22222266;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      // webpack 5 dropped the automatic Node `process` shim that some bundled
+      // libraries still reference (e.g. is-windows via process.platform).
+      // Provide a minimal one for the plain browser; under Electron the desktop
+      // app relies on platform detection via the preload contextBridge instead.
+      if (typeof window !== 'undefined' && typeof window.process === 'undefined') {
+        window.process = { env: {}, platform: '', browser: true, versions: {}, nextTick: function (f) { setTimeout(f, 0); } };
+      }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-6182397-13"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-6182397-13');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <title>K-Board Pro 4 Editor</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- webfonts, meta tags, or analytics -->
+  </body>
+</html>

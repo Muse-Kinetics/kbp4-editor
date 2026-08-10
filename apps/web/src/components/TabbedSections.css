@@ -1,0 +1,58 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+/* Tabs */
+.react-tabs {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  /* The desktop app makes the whole (frameless) window a drag region; opt the
+     tabbed editor content out so the tabs and every control in the panels stay
+     clickable. Interactive elements otherwise inherit the window drag and
+     swallow clicks. */
+  -webkit-app-region: no-drag;
+}
+
+.react-tabs__tab-list {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0;
+  display: grid;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.react-tabs__tab {
+  border: none !important;
+  bottom: 0px;
+  padding: 6px 10px !important;
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 100;
+  background: #262626 !important;
+  color: #ffffff77;
+  margin-right: 5px;
+  box-shadow: inset 0px -10px 13px 0px #222;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.react-tabs__tab:last-child {
+  margin-right: 0;
+}
+.react-tabs__tab::before, .react-tabs__tab::after {
+  display: none;
+}
+.react-tabs__tab--selected {
+  background: #333 !important;
+  color: white !important;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  box-shadow: none;
+}
+.react-tabs__tab--selected:focus {
+  box-shadow: none;
+}
+.react-tabs__tab-panel--selected {
+  background: #333 !important;
+  padding-bottom: 5px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

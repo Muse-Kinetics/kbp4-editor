@@ -1,0 +1,330 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) 2026 KMI Music, Inc.
+// Device - connections
+export const CONNECT = 'CONNECT'
+// {type:CONNECT}
+export const DISCONNECT = 'DISCONNECT'
+// {type:DISCONNECT}
+export const RECONNECT = 'RECONNECT'
+// {type:RECONNECT}
+
+// Device - get device firmware
+export const REQUEST_FIRMWARE_VERSION = 'REQUEST_FIRMWARE_VERSION' // request fw/bl from device
+// {type:REQUEST_FIRMWARE_VERSION, error: false}
+export const SET_FIRMWARE_VERSION = 'SET_FIRMWARE_VERSION'
+// {type:REQUEST_FIRMWARE_VERSION, versions: {firmware: "0.0.0.0", bootloader: "0.0.0.0"}}
+export const FETCH_FIRMWARE_VERSION = 'FETCH_FIRMWARE_VERSION'
+// {type:FETCH_FIRMWARE_VERSION}
+export const SET_AVAILABLE_FIRMWARE = 'SET_AVAILABLE_FIRMWARE'
+// {type:SET_AVAILABLE_FIRMWARE, version: version}
+export const SET_FIRMWARE_UPDATE_AVAILABLE = 'SET_FIRMWARE_UPDATE_AVAILABLE'
+// {type:SET_FIRMWARE_UPDATE_AVAILABLE, updateable: false}
+
+// Device - Firmware Updating
+export const DEVICE_UPDATE_FIRMWARE = 'DEVICE_UPDATE_FIRMWARE'
+// {type:DEVICE_UPDATE_FIRMWARE, error: true}
+export const UPDATE_FIRMWARE = 'UPDATE_FIRMWARE'
+// {type:UPDATE_FIRMWARE, error: false}
+export const FETCH_FIRMWARE = 'FETCH_FIRMWARE'
+// {type:FETCH_FIRMWARE}
+export const DEVICE_ENTER_BOOTLOADER = 'DEVICE_ENTER_BOOTLOADER'
+// {type:DEVICE_ENTER_BOOTLOADER}
+export const BOOTLOADER_READY = 'BOOTLOADER_READY'
+// {type:BOOTLOADER_READY}
+export const SET_BOOTLOADER_MODE = 'SET_BOOTLOADER_MODE'
+// {type:SET_BOOTLOADER_MODE, active: true}
+export const BOOTLOADER_DISCONNECT = 'BOOTLOADER_DISCONNECT'
+// {type:BOOTLOADER_DISCONNECT}
+export const SEND_FIRMWARE_CENTRAL = 'SEND_FIRMWARE_CENTRAL'
+// {type:SEND_FIRMWARE_CENTRAL}
+export const SEND_FIRMWARE_PERIPHERAL = 'SEND_FIRMWARE_PERIPHERAL'
+// {type:SEND_FIRMWARE_PERIPHERAL}
+export const PERIPHERAL_READY = 'PERIPHERAL_READY'
+// {type:PERIPHERAL_READY}
+export const FIRMWARE_UPDATE_COMPLETE = 'FIRMWARE_UPDATE_COMPLETE'
+// {type:FIRMWARE_UPDATE_COMPLETE}
+export const FIRMWARE_PERIPHERAL_PROGRESS = 'FIRMWARE_PERIPHERAL_PROGRESS'
+// {type:FIRMWARE_PERIPHERAL_PROGRESS, boardsUpdated: 1}
+export const FIRMWARE_UPDATE_ERROR = 'FIRMWARE_UPDATE_ERROR'
+// {type:FIRMWARE_UPDATE_ERROR, message: '...'}
+export const FIRMWARE_UPDATE_DISMISS = 'FIRMWARE_UPDATE_DISMISS'
+// {type:FIRMWARE_UPDATE_DISMISS}
+
+// Device - Global
+export const DEVICE_REQUEST_FIRMWARE_VERSIONS = 'DEVICE_REQUEST_FIRMWARE_VERSIONS'
+//{type:DEVICE_REQUEST_FIRMWARE_VERSIONS}:  KBoardPro4.getFirmwareVersion()
+export const DEVICE_REQUEST_PRESET = 'DEVICE_REQUEST_PRESET'
+//{type:DEVICE_REQUEST_PRESET}:  KBoardPro4.getPreset()
+export const DEVICE_REQUEST_USER_CURVE = 'DEVICE_REQUEST_USER_CURVE'
+//{type:DEVICE_REQUEST_USER_CURVE}:  KBoardPro4.getUserCurve()
+export const DEVICE_LOAD_PRESET_TO_BUFFER = 'DEVICE_LOAD_PRESET_TO_BUFFER'
+//{type:DEVICE_LOAD_PRESET_TO_BUFFER}:  KBoardPro4.loadPreset()
+export const DEVICE_SAVE_PRESET_TO_MEMORY = 'DEVICE_SAVE_PRESET_TO_MEMORY'
+//{type:DEVICE_SAVE_PRESET_TO_MEMORY}:  KBoardPro4.savePreset()
+export const REQUEST_VELOCITY_CURVES = 'REQUEST_VELOCITY_CURVES'
+// {type:REQUEST_VELOCITY_CURVES, error: false}
+export const DEVICE_SAVE_USER_CURVE = 'DEVICE_SAVE_USER_CURVE'
+//{type:DEVICE_SAVE_USER_CURVE}:  KBoardPro4.saveUserCurve()
+export const DEVICE_SEND_PRESET_TO_BUFFER = 'DEVICE_SEND_PRESET_TO_BUFFER'
+//{type:DEVICE_SEND_PRESET_TO_BUFFER}:  KBoardPro4.sendPreset(preset)
+export const DEVICE_REQUEST_SENSOR_BANK = 'DEVICE_REQUEST_SENSOR_BANK'
+//{type:DEVICE_REQUEST_SENSOR_BANK}:  KBoardPro4.getSensorBank(bank)
+export const DEVICE_UPDATE_BUFFER_PRESET_NAME = 'DEVICE_UPDATE_BUFFER_PRESET_NAME'
+//{type: DEVICE_UPDATE_BUFFER_PRESET_NAME, name: name}
+export const DEVICE_RESET = 'DEVICE_RESET'
+//{type:DEVICE_RESET}:  KBoardPro4.reset()
+
+// Editor
+export const SET_AVAILABLE_EDITOR = 'SET_AVAILABLE_EDITOR'
+// {type:SET_AVAILABLE_EDITOR, version: version}
+export const SET_EDITOR_UPDATE_AVAILABLE = 'SET_EDITOR_UPDATE_AVAILABLE'
+// {type:SET_EDITOR_UPDATE_AVAILABLE, updateable: false}
+export const SET_UPDATES_AVAILABLE = 'SET_UPDATES_AVAILABLE'
+// {type:SET_UPDATES_AVAILABLE}
+export const NETWORK_CONNECTION = 'NETWORK_CONNECTION'
+// {type:NETWORK_CONNECTION, state: true}
+export const ONLINE = 'ONLINE'
+// {type:ONLINE}
+export const OFFLINE = 'OFFLINE'
+// {type:OFFLINE}
+export const IS_ELECTRON = 'IS_ELECTRON'
+// {type:IS_ELECTRON state: false}
+export const SET_STATUS_MESSAGE = 'SET_STATUS_MESSAGE'
+// {type:SET_STATUS_MESSAGE, message: ''}
+export const TOGGLE_PRESET_DIALOG = 'TOGGLE_PRESET_DIALOG'
+// {type:TOGGLE_PRESET_DIALOG}
+export const SELECT_KEY = 'SELECT_KEY'
+// {type:SELECT_KEY, key: 0}
+export const SELECT_ZONE = 'SELECT_ZONE'
+// {type:SELECT_ZONE, zone: 0}
+export const SELECT_AXIS = 'SELECT_AXIS'
+// {type:SELECT_AXIS, index: 1}
+export const SELECT_SLIDER = 'SELECT_SLIDER'
+// {type:SELECT_SLIDER, index: 1}
+export const SELECT_PEDAL = 'SELECT_PEDAL'
+// {type:SELECT_PEDAL, index: 1}
+export const OPEN_VELOCITY_CURVES = 'OPEN_VELOCITY_CURVES'
+// {type:OPEN_VELOCITY_CURVES}
+export const CLOSE_VELOCITY_CURVES = 'CLOSE_VELOCITY_CURVES'
+// {type:CLOSE_VELOCITY_CURVES}
+export const SET_CURVE_EDITOR_OPENER = 'SET_CURVE_EDITOR_OPENER'
+// {type:SET_CURVE_EDITOR_OPENER, index: 0}
+export const REVERTABLE_PRESET = 'REVERTABLE_PRESET'
+// {type:REVERTABLE_PRESET, diffLength: length}
+export const RESET_DEVICE_PRESETS_IN_STATE = 'RESET_DEVICE_PRESETS_IN_STATE'
+// {type:RESET_DEVICE_PRESETS_IN_STATE}
+export const DEVICE_PRESETS_LOADED = 'DEVICE_PRESETS_LOADED'
+// {type:DEVICE_PRESETS_LOADED, status: true}
+export const INITIAL_PRESET_LOADED = 'INITIAL_PRESET_LOADED'
+// {type:INITIAL_PRESET_LOADED}
+export const OPEN_PRESET_RENAMER = 'OPEN_PRESET_RENAMER'
+// {type:OPEN_PRESET_RENAMER}
+export const CLOSE_PRESET_RENAMER = 'CLOSE_PRESET_RENAMER'
+// {type:CLOSE_PRESET_RENAMER}
+export const SET_TEMP_IMPORTED_PRESETS = 'SET_TEMP_IMPORTED_PRESETS'
+// {type:SET_TEMP_IMPORTED_PRESETS, presets: presets}
+export const SET_IMPORTED_PRESET_NAME = 'SET_IMPORTED_PRESET_NAME'
+// {type:SET_IMPORTED_PRESET_NAME, names: name, index: index}
+export const SET_IMPORTED_PRESET_NAMES = 'SET_IMPORTED_PRESET_NAMES'
+// {type:SET_IMPORTED_PRESET_NAMES, names: []}
+export const RESET_IMPORTED_NAMES = 'RESET_IMPORTED_NAMES'
+// {type:RESET_IMPORTED_NAMES}
+export const SET_VISUALZER_STATE = 'SET_VISUALZER_STATE'
+// {type:SET_VISUALZER_STATE, active: true}
+export const EDITOR_UPDATING = 'EDITOR_UPDATING'
+// {type:EDITOR_UPDATING, updating: true}
+export const EDITOR_DOWNLOAD_PROGRESS = 'EDITOR_DOWNLOAD_PROGRESS'
+// {type:EDITOR_DOWNLOAD_PROGRESS, percent: 0}
+export const SET_SOLO_MESSAGE_TYPE = 'SET_SOLO_MESSAGE_TYPE'
+// {type:SET_SOLO_MESSAGE_TYPE, messageType: 0}
+export const SET_SOLO_MESSAGE_CHANNEL = 'SET_SOLO_MESSAGE_CHANNEL'
+// {type:SET_SOLO_MESSAGE_CHANNEL, channel: 1}
+export const SEND_SOLO_MESSAGE = 'SEND_SOLO_MESSAGE'
+// {type:SEND_SOLO_MESSAGE, messageType: 0}
+export const SET_MIDI_THRU = 'SET_MIDI_THRU'
+// {type:SET_MIDI_THRU, portname: 'port'}
+export const REFRESH_THRU_PORTS = 'REFRESH_THRU_PORTS'
+// {type:REFRESH_THRU_PORTS }
+
+// Editor Preferences
+export const OPEN_PREFERENCES = 'OPEN_PREFERENCES'
+// {type:OPEN_PREFERENCES}
+export const SET_PREFERENCE_TOOLTIPS = 'SET_PREFERENCE_TOOLTIPS'
+// {type:SET_PREFERENCE_TOOLTIPS, active: active}
+export const SET_PREFERENCE_AUTOHIDE_SPLITS = 'SET_PREFERENCE_AUTOHIDE_SPLITS'
+// {type:SET_PREFERENCE_AUTOHIDE_SPLITS, active: active}
+
+// Presets - CRUD
+export const REQUEST_USER_PRESETS = 'REQUEST_USER_PRESETS'
+// {type:REQUEST_USER_PRESETS, presets: []}
+export const LOAD_PRESET = 'LOAD_PRESET'
+// {type:LOAD_PRESET, preset: {...preset}}
+export const SET_CURRENT_PRESET = 'SET_CURRENT_PRESET'
+// {type:SET_CURRENT_PRESET, preset: {...preset}}
+export const BUILD_PRESETS = 'BUILD_PRESETS'
+// {type:BUILD_PRESETS, preset: {...preset}}
+export const SAVE_PRESET = 'SAVE_PRESET' // to localStorage
+// {type:SAVE_PRESET, name: 'preset name'}
+export const SET_USER_PRESET_NAME = 'SET_USER_PRESET_NAME'
+// {type:SET_USER_PRESET_NAME, name: 'preset name'}
+export const SAVE_NEW_PRESET = 'SAVE_NEW_PRESET'
+// {type:SAVE_NEW_PRESET, name: 'preset name'}
+export const CANCEL_SAVE_AS_PRESET = 'CANCEL_SAVE_AS_PRESET'
+// {type:CANCEL_SAVE_AS_PRESET}
+export const DELETE_PRESET = 'DELETE_PRESET'
+// {type:DELETE_PRESET}
+export const REVERT_PRESET = 'REVERT_PRESET'
+// {type:REVERT_PRESET}
+export const SEND_PRESET = 'SEND_PRESET' // to device
+// {type:SEND_PRESET, destination: 1}
+export const SELECT_PRESET_DESTINATION = 'SELECT_PRESET_DESTINATION'
+// {type:SELECT_PRESET, destination: 1}
+export const SELECT_PRESET = 'SELECT_PRESET'
+// {type:SELECT_PRESET, destination: 1}
+export const ADD_PRESET = 'ADD_PRESET'
+// {type:ADD_PRESET, category: 'user', index:0}
+export const ADD_PRESETS = 'ADD_PRESETS'
+// {type:ADD_PRESETS, category: 'user', index:0}
+export const DOWNLOAD_USER_PRESETS = 'DOWNLOAD_USER_PRESETS'
+// {type:DOWNLOAD_USER_PRESETS}
+
+// Preset
+export const SET_PRESET_VERSION = 'SET_PRESET_VERSION'
+// {type:SET_PRESET_VERSION, version: '0.0.0.0'}
+
+// name
+export const UPDATE_CURRENT_PRESET_NAME = 'UPDATE_CURRENT_PRESET_NAME'
+// {type:UPDATE_CURRENT_PRESET_NAME, name: 'Preset Name'}
+
+// : Keys
+export const SET_KEY_AXIS_MODE = 'SET_KEY_AXIS_MODE'
+// {type:SET_KEY_AXIS_MODE, axis: 0, mode: 0}
+export const SET_KEY_AXIS_THRESHOLD = 'SET_KEY_AXIS_THRESHOLD'
+// {type:SET_KEY_AXIS_THRESHOLD, axis: 0, threshold: 0}
+export const SET_KEY_AXIS_GAIN = 'SET_KEY_AXIS_GAIN'
+// {type:SET_KEY_AXIS_GAIN, axis: 0, gain: 1.10}
+export const SET_KEY_AXIS_CC = 'SET_KEY_AXIS_CC'
+// {type:SET_KEY_AXIS_CC, axis: 0, cc: 0}
+export const SET_KEY_AXIS_OFFSET = 'SET_KEY_AXIS_OFFSET'
+// {type:SET_KEY_AXIS_OFFSET, axis: 0, offset: 0}
+export const SET_KEY_AXIS_RELATIVE_START = 'SET_KEY_AXIS_RELATIVE_START'
+// {type:SET_KEY_AXIS_RELATIVE_START, axis: 0, start: 0}
+export const SET_KEY_AXIS_CURVE = 'SET_KEY_AXIS_CURVE'
+// {type:SET_KEY_AXIS_CURVE, axis: 0, index: 0}
+export const SET_KEY_AXIS_ZERO_ON_RELEASE = 'SET_KEY_AXIS_ZERO_ON_RELEASE'
+// {type:SET_KEY_AXIS_ZERO_ON_RELEASE, axis: 0, mode: 0}
+export const SET_KEY_AXIS_INVERT = 'SET_KEY_AXIS_INVERT'
+// {type:SET_KEY_AXIS_INVERT, axis: 0, invert: 0}
+
+// : Key Gain
+export const OPEN_KEY_GAIN = 'OPEN_KEY_GAIN'
+// {type:OPEN_KEY_GAIN}
+export const CLOSE_KEY_GAIN = 'CLOSE_KEY_GAIN'
+// {type:CLOSE_KEY_GAIN}
+export const SENSORS_LOADED = 'SENSORS_LOADED'
+// {type:SENSORS_LOADED, loaded: true}
+export const SET_KEY_SENSOR_GAIN = 'SET_KEY_SENSOR_GAIN'
+// {type:SET_KEY_SENSOR_GAIN, key: 0, sensor: 0}
+export const REVERT_KEY_GAIN = 'REVERT_KEY_GAIN'
+// {type:REVERT_KEY_GAIN}
+export const SAVE_KEY_GAIN = 'SAVE_KEY_GAIN'
+// {type:SAVE_KEY_GAIN}
+export const SET_SENSOR_MODE = 'SET_SENSOR_MODE'
+// {type:SET_SENSOR_MODE, mode: 0}
+export const SET_KEY_SENSOR = 'SET_KEY_SENSOR'
+// {type:SET_KEY_SENSOR, values: '0,1,2,3,4,5,6,7'}
+export const SET_OVERRIDE_SENSOR = 'SET_OVERRIDE_SENSOR'
+// {type:SET_OVERRIDE_SENSOR, sensor: '0,1,2,3,4,5,6,7'}
+export const REMOVE_OVERRIDE_SENSOR = 'REMOVE_OVERRIDE_SENSOR'
+// {type: REMOVE_OVERRIDE_SENSOR, id: sensorID}
+export const DEVICE_AUDITION_SENSOR = 'DEVICE_AUDITION_SENSOR'
+// {type:DEVICE_AUDITION_SENSOR, bank: 0, gang: 0, values: {...sensorValues}}
+export const DEVICE_WRITE_SENSOR = 'DEVICE_WRITE_SENSOR'
+// {type:DEVICE_WRITE_SENSOR, bank: 0, gang: 0, values: {...sensorValues}}
+export const DEVICE_ERASE_SENSOR_BANK = 'DEVICE_ERASE_SENSOR_BANK'
+// {type:DEVICE_ERASE_SENSOR_BANK, bankIndex: 0}
+export const DEVICE_RECALCULATE_SENSORS = 'DEVICE_RECALCULATE_SENSORS'
+// {type:DEVICE_RECALCULATE_SENSORS}
+export const DEVICE_WRITE_SENSOR_BANK = 'DEVICE_WRITE_SENSOR_BANK'
+// {type:DEVICE_WRITE_SENSOR_BANK, bank: 0, gang: 0, values: {...sensorValues}}
+export const REVERT_SENSOR_STATE = 'REVERT_SENSOR_STATE'
+// {type:REVERT_SENSOR_STATE, overrides: {}}
+export const RESET_OVERRIDES = 'RESET_OVERRIDES'
+// {type:RESET_OVERRIDES, overrides: {}}
+
+// : Sliders
+export const SET_SLIDER_MODE = 'SET_SLIDER_MODE'
+// {type:SET_SLIDER_MODE, slider: 0, mode: 0}
+export const SET_SLIDER_CC = 'SET_SLIDER_CC'
+// {type:SET_SLIDER_CC, slider: 0, cc: 0}
+export const SET_SLIDER_ZONE = 'SET_SLIDER_ZONE'
+// {type:SET_SLIDER_ZONE, slider: 0, zone: 0}
+
+// : Zones
+export const SET_ZONE_SPLIT_KEY = 'SET_ZONE_SPLIT_KEY'
+// {type:SET_SPLIT_POINT, zone: 0, bar: 10}
+export const SET_ZONE_CURVE = 'SET_ZONE_CURVE'
+// {type:SET_ZONE_A_CURVE, zone: 0, curve: 1}
+export const SET_PRESET_GAIN = 'SET_PRESET_GAIN'
+// {type:SET_PRESET_GAIN, gain: 1.5}
+
+// : Pedals
+export const SET_PEDAL_MODE = 'SET_PEDAL_MODE'
+// {type:SET_PEDAL_MODE, index: 1, mode: 1}
+export const SET_PEDAL_CC = 'SET_PEDAL_CC'
+// {type:SET_PEDAL_CC, index: 1, CC: 1}
+export const SET_PEDAL_THRESHOLD = 'SET_PEDAL_THRESHOLD'
+// {type:SET_PEDAL_THRESHOLD, pedal: 0, threshold: 0}
+export const SET_PEDAL_ZONE = 'SET_PEDAL_ZONE'
+// {type:SET_PEDAL_ZONE, pedal: 0, zone: 0}
+
+// : Advanced Settings
+export const SET_MPE_MODE = 'SET_MPE_MODE'
+// {type:SET_MPE_MODE, mode: 1}
+export const SET_MIDI_DEVICE_CHANNEL = 'SET_MIDI_DEVICE_CHANNEL'
+// {type:SET_MIDI_DEVICE_CHANNEL, zone: 0, channel: 0}
+export const SET_MPE_DEVICE_CHANNEL = 'SET_MPE_DEVICE_CHANNEL'
+// {type:SET_MPE_DEVICE_CHANNEL, zone: 0, channel: 0}
+
+export const SET_RELEASE_VELOCITY_ON = 'SET_RELEASE_VELOCITY_ON'
+// {type:SET_RELEASE_VELOCITY_ON, on: 0}
+export const SET_NOTE_ON_CURVE_INDEX = 'SET_NOTE_ON_CURVE_INDEX'
+// {type:SET_NOTE_ON_CURVE_INDEX, zone: 0, index: 0}
+export const SET_RELEASE_VELOCITY_CURVE_INDEX = 'SET_RELEASE_VELOCITY_CURVE_INDEX'
+// {type:SET_RELEASE_VELOCITY_CURVE_INDEX, zone: 0, index: 0}
+
+export const SET_PITCH_BEND_MASTER_RANGE = 'SET_PITCH_BEND_MASTER_RANGE'
+// {type:SET_PITCH_BEND_RANGE, zone: 0, range: 0}
+export const SET_PITCH_BEND_MEMBER_RANGE = 'SET_PITCH_BEND_MEMBER_RANGE'
+// {type:SET_PITCH_BEND_RANGE, zone: 0, range: 0}
+export const SET_PITCH_BEND_RETURN_MODE = 'SET_PITCH_BEND_RETURN_MODE'
+// {type:SET_PITCH_BEND_RETURN_MODE, zone: 0, mode: 1}
+export const SET_PITCH_BEND_RETURN_TIME = 'SET_PITCH_BEND_RETURN_TIME'
+// {type:SET_PITCH_BEND_RETURN_TIME, zone: 0, time: 100}
+export const SET_PITCH_BEND_RETURN_CURVE = 'SET_PITCH_BEND_RETURN_CURVE'
+// {type:SET_PITCH_BEND_RETURN_CURVE, zone: 0, index: 0}
+
+export const SET_OCTAVE = 'SET_OCTAVE'
+// {type:SET_OCTAVE, zone: 0, octave: 0}
+export const SET_TRANSPOSE = 'SET_TRANSPOSE'
+// {type:SET_TRANSPOSE, zone: 0, transpose: 0}
+export const SET_DEVICE_SENSITIVITY = 'SET_DEVICE_SENSITIVITY'
+// {type:SET_DEVICE_SENSITIVITY, sensitivity: 0}
+export const SET_SLIDER_SENSITIVITY = 'SET_SLIDER_SENSITIVITY'
+// {type:SET_SLIDER_SENSITIVITY, sensitivity: 0}
+export const SET_LED_MODE = 'SET_LED_MODE'
+// {type:SET_LED_MODE, mode: 0}
+
+// : Velocity Curves
+export const SELECT_VELOCITY_CURVE = 'SELECT_VELOCITY_CURVE'
+// {type:SELECT_VELOCITY_CURVE, index: 0}
+export const SELECT_USER_CURVE = 'SELECT_USER_CURVE'
+// {type:SELECT_USER_CURVE, index: 0}
+export const SET_USER_CURVE = 'SET_USER_CURVE'
+// {type:SET_USER_CURVE, index: 0, curve: []}
+export const RESET_USER_CURVE = 'RESET_USER_CURVE'
+// {type:RESET_USER_CURVE, index: 0}
+export const RESET_USER_CURVES_STORE = 'RESET_USER_CURVES_STORE'
+// {type:RESET_USER_CURVES_STORE}
+export const SET_REVERTABLE_CURVE = 'SET_REVERTABLE_CURVE'
+// {type:SET_REVERTABLE_CURVE}

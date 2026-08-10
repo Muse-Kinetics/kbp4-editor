@@ -1,0 +1,142 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.zones {
+  position: relative;
+  padding: 20px 10px 0 20px;
+  display: grid;
+  grid-template-rows: 50px 1fr 1fr;
+  grid-gap: 5px;
+  align-items: start;
+  transition: 800ms all ease;
+}
+.zones::before {
+  content: ' ';
+  position: absolute;
+  left: 5px;
+  top: 20px;
+  width: 1px;
+  height: calc(100% - 18px);
+  border-left: 1px dashed #efefef33;
+}
+.zones:hover {
+  filter: drop-shadow(0px 0px 5px #111);
+  text-shadow: 0 0 5px #111;
+}
+.zone-label {
+  position: relative;
+  font-weight: 100;
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+.zone-buttons {
+  display: grid;
+  grid-template-columns:1fr 1fr;
+  grid-gap: 5px;
+}
+/* .zone-settings {
+  margin-top: 48px;
+} */
+.zone-channels {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.zone-channels.error, .zone-channels.error input {
+  position: relative;
+  border-color: maroon !important;
+}
+.zone-channels.error::before {
+  content: 'not available';
+  position: absolute;
+  top: 15px;
+  right: 55px;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.zone-splits {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 20px;
+}
+.zone-splits label {
+  grid-column: 1 / 4;
+  align-self: end;
+}
+.zone-splits::after {
+  content: '';
+  position: absolute;
+  width: calc(100% - 30px);
+  top: 102px;
+  height: 1px;
+  border-bottom: 1px dashed #ffffff44;
+}
+.zone-splits .react-numeric-input input {
+  border-color: #efefef !important;
+}
+.zone-splits.upper .react-numeric-input input {
+  background-image: url(../svg/off-bg.svg);
+  color: #ffffff66;
+}
+.zone-splits.upper .react-numeric-input input, .zone-splits.lower .react-numeric-input input {
+  background-color: #222222aa;
+  background-image: url(../svg/off-bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: -27px 1px;
+  color: #ffffff00;
+}
+.zone-channels label {
+  grid-column: 1 / 4;
+  align-self: end;
+}
+.mpeoff::after {
+  content: '( MPE OFF )';
+  position: absolute;
+  bottom: 3px;
+  right: 0px;
+  font-size: 10px;
+}
+.zone-curves {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1px 10px;
+  margin-top: 14px;
+}
+.zone-curves label {
+  grid-column: 1 / 1;
+  padding-top: 13px;
+}
+.zone-curves select {
+  grid-column: 2 / -1;
+}
+.mpe-mode {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0px 10px;
+  /* padding-top: 5px; */
+  margin-top: 10px;
+}
+.mpe-mode label {
+  padding-top: 13px;
+}
+.mpe-mode select {
+  border: 1px solid #fff;
+}
+.mpe-mode::after {
+  content: '';
+  position: absolute;
+  width: calc(100%);
+  bottom: -17px;
+  height: 1px;
+  border-top: 1px dashed #ffffff44;
+}
+
+@keyframes barberpole {
+  100% {
+    background-position: 100% 100%;
+  }
+}

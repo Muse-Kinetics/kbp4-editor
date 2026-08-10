@@ -1,0 +1,14 @@
+{
+	"linear" : 0,
+	"log"    : 1,
+	"exp"    : 2,
+	"light"  : 3,
+	"medium" : 4,
+	"hard"   : 5,
+	"dynamic": 6,
+	"user-1" : 7,
+	"user-2" : 8,
+	"user-3" : 9,
+	"user-4" : 10,
+	"-- edit curves --": 127
+}

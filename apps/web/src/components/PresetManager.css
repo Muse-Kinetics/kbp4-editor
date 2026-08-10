@@ -1,0 +1,124 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.preset-manager-drop {
+  position: relative;
+  background: #333;
+  grid-column: 1 / 7;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+}
+.active-drop {
+  background: #646464;
+  opacity: 0.5;
+}
+.accept-file-drop {
+  background: #397D02;
+}
+.reject-file-drop {
+  background: #A04040;
+}
+.reject-file-drop::after {
+  content: 'Wrong File Type';
+  position: absolute;
+  top: 25px;
+  left: 0;
+  width: 100%;
+  color: white;
+  font-size: 45px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1;
+}
+.preset-manager {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  padding: 8px 0 8px 8px;
+  box-shadow: 0 0 20px #111;
+}
+.presets-label {
+  font-size: 10px;
+  line-height: 11px;
+  width: 5%;
+  word-wrap: break-word;
+  letter-spacing: 20px;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+
+.preset-manager-select {
+  display: flex;
+  min-width: 1px;
+}
+
+.preset-manager-select select {
+  margin-bottom: 7px;
+}
+
+.presets-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 10px;
+}
+.presets-box .revert {
+  margin-bottom: 7px;
+}
+.button-group.destination {
+  display: contents;
+}
+.button.save-to-malletstation {
+  /* text-transform: none; */
+}
+.preset-manager-user {
+  display: flex;
+  min-width: 1px;
+}
+
+.attention .save:not([disabled]), .attention .revert {
+  /* background-color: maroon;  */
+  /* background-color: #8000008a; */
+  background-color: #80000075;
+}
+
+.preset-manager-user .presets-label {
+  width: 7%;
+  padding-top: 25px;
+}
+
+header button.send-to-malletstation, header button.delete {
+  margin-bottom: 0;
+}
+
+.preset-name-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  margin-right: 10px;
+}
+.preset-name-form input {
+  margin-bottom: 7px;
+  height: 27px;
+  border-radius: 3px;
+}
+.preset-name-form input.preset-name {
+  border-radius: 3px;
+}
+.preset-name-form.duplicate input {
+  border-color: maroon;
+  outline-color: #646464;
+}
+header .preset-name-form button.cancel {
+  margin-bottom: 7px;
+}
+
+.preset-manager-select-destination > button {
+  letter-spacing: 1px;
+}
+
+ @media only screen and (max-width: 768px)   {
+   .preset-manager {
+     grid-column: 1 / 8;
+     /* grid-template-columns: 60% 40%; */
+   }
+ }

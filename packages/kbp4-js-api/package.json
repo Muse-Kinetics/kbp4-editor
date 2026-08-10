@@ -1,0 +1,23 @@
+{
+  "name": "kbp4-js-api",
+  "version": "0.19.0",
+  "description": "JavaScript API for K-Board Pro 4 for use with web-based editor",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel --plugins @babel/plugin-transform-modules-commonjs src --out-dir dist",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrej Hronco",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@babel/preset-env": "^7.4.4",
+    "eventemitter3": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4"
+  }
+}

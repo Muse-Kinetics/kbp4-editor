@@ -1,0 +1,13 @@
+K-Board Pro 4 Editor
+
+Copyright (c) 2026 KMI Music, Inc.
+
+Author: Andrej Hronco
+
+Project license: MPL-2.0
+
+Trademarks: "K-Board", "K-Board Pro 4", "KMI", "KMI Music", and "Muse Kinetics", along with associated logos and brand assets, are trademarks of KMI Music, Inc. The MPL-2.0 license applies to the source code only and grants no rights to use these marks.
+
+Third-party notices:
+- apps/desktop retains the upstream Electron React Boilerplate MIT license notice for any code and templates derived from that project.
+- The bundled UI font is Lato (https://www.latofonts.com), Copyright (c) 2010-2014 by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato", licensed under the SIL Open Font License 1.1.

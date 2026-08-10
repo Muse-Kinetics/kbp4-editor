@@ -1,0 +1,38 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.imported-preset-renamer {
+  max-width: 250px;
+}
+.imported-preset-renamer .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.imported-preset-renamer h3 {
+  font-weight: 100;
+  margin:0;
+}
+.imported-preset-renamer p {
+  font-weight: 100;
+  font-size: 12px;
+  margin:10px 0 10px 0;
+}
+.duplicate-names {
+  max-height: 230px;
+  overflow: auto;
+}
+.duplicate-name-field {
+  margin-bottom: 10px;
+}
+.duplicate-name-field label {
+  display: block;
+  margin-bottom: 3px;
+}
+.duplicate-name-field .preset-rename-duplicate {
+  border-color: maroon;
+  outline-color: maroon;
+}
+.imported-preset-renamer .button-group {
+  margin-top: 10px;
+}

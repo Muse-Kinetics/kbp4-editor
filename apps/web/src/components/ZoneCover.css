@@ -1,0 +1,167 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.zone-cover {
+  position: absolute;
+  top:0;
+  left: 0;
+  height: 90%;
+  cursor: pointer;
+  transition: 0.75s opacity ease-in, 0.1s width;
+  z-index: 0;
+
+  color: #ffffff99;
+  font-size: 24px;
+  font-weight: 100;
+  text-transform: uppercase;
+  text-align: center;
+
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+}
+.zone-cover.active:not(.autohide) {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent .2rem,
+    #00adef11 .3rem,
+    #465298aa .4rem
+  );
+  background-size: 200% 200%;
+  animation-name: barberpole;
+  animation-duration: 40s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  color: #ffffff;
+  transform: translate3d(0, 0, 0);
+}
+.zone-cover.upper-zone.active {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent .2rem,
+    #9a6aad11 .3rem,
+    #465298aa .4rem
+  );
+}
+.zone-cover.lower-zone.active.autohide {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent .2rem,
+    #00adef00 .3rem,
+    #46529800 .4rem
+  );
+}
+.zone-cover.lower-zone.active.autohide:hover {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent .2rem,
+    #00adef11 .3rem,
+    #465298aa .4rem
+  );
+  background-size: 200% 200%;
+  animation-name: barberpole;
+  animation-duration: 40s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform: translate3d(0, 0, 0);
+}
+.zone-cover.upper-zone.active.autohide {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent .2rem,
+    #9a6aad00 .3rem,
+    #46529800 .4rem
+  );
+}
+.zone-cover.upper-zone.active.autohide:hover {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent .2rem,
+    #9a6aad11 .3rem,
+    #465298aa .4rem
+  );
+  background-size: 200% 200%;
+  animation-name: barberpole;
+  animation-duration: 40s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform: translate3d(0, 0, 0);
+}
+.upper-zone {
+  right: 0;
+  left: auto;
+  width: auto;
+  border-left: 1px solid #ffffffcc;
+}
+.zone-cover.off {
+  opacity: 0;
+  z-index: -1;
+}
+.zone-cover.full-zone {
+  color: #ffffff33;
+  border: none;
+}
+
+.lower-zone::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -4px;
+  height: 3px;
+  width: 100%;
+  background-color: #00adef66;
+  border-radius: 3px;
+}
+.lower-zone.active::before {
+  background-color: #00adef;
+}
+.upper-zone::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #9a6aad66;
+  border-radius: 3px;
+}
+.upper-zone.active::before {
+  background-color: #9a6aad;
+}
+.lower-zone::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 3px;
+  width: 100%;
+  background-color: #00adef66;
+  border-radius: 3px;
+}
+.lower-zone.active::after {
+  background-color: #00adef;
+}
+.upper-zone::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: #9a6aad66;
+  border-radius: 3px;
+}
+.upper-zone.active::after {
+  background-color: #9a6aad;
+}
+
+@keyframes barberpole {
+  100% {
+    background-position: 100% 100%;
+  }
+}

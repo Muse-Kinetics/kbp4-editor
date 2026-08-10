@@ -1,0 +1,19 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+header {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 10px;
+
+  user-select: none;
+}
+header .preset-manager-select .button-group .button {
+  font-size: 12px;
+  text-shadow: 0 1px 1px #000;
+}
+header .button.toggled {
+  background-color: #999;
+}
+.electron header {
+  padding: 0 10px;
+}

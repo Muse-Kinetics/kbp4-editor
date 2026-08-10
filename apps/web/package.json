@@ -1,0 +1,60 @@
+{
+  "name": "kbp4-editor-web",
+  "version": "1.4.0",
+  "private": true,
+  "homepage": "https://files.keithmcmillen.com/products/k-board-pro-4/editor",
+  "dependencies": {
+    "compare-versions": "^3.6.0",
+    "deep-object-diff": "^1.1.0",
+    "is-electron": "^2.2.0",
+    "is-windows": "^1.0.2",
+    "kbp4-js-api": "*",
+    "lodash.clamp": "^4.0.3",
+    "lodash.debounce": "^4.0.8",
+    "lodash.intersectionby": "^4.7.0",
+    "lodash.isempty": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.isobject": "^3.0.2",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.omit": "^4.5.0",
+    "lodash.transform": "^4.6.0",
+    "nexusui": "^2.1.6",
+    "promise-file-reader": "^1.0.3",
+    "react": "^16.14.0",
+    "react-compound-slider": "^1.2.2",
+    "react-dom": "^16.14.0",
+    "react-dropzone": "^7.0.1",
+    "react-modal": "^3.12.1",
+    "react-numeric-input": "^2.2.3",
+    "react-redux": "^7.2.2",
+    "react-scripts": "5.0.1",
+    "react-simpler-select": "^3.0.0",
+    "react-tabs": "^3.1.2",
+    "react-toggle": "^4.1.1",
+    "react-tooltip": "^3.11.6",
+    "redux": "^4.0.5",
+    "redux-localstorage-simple": "^2.3.1",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "BROWSER='Google Chrome Dev' craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "build-no-map": "GENERATE_SOURCEMAP=false craco build"
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "classnames": "^2.2.6",
+    "postcss": "^8.4.31",
+    "prop-types": "^15.7.2",
+    "redux-devtools": "^3.7.0"
+  },
+  "browserslist": {
+    "production": [
+      "last 2 Chrome versions"
+    ],
+    "development": [
+      "last 1 Chrome version"
+    ]
+  }
+}

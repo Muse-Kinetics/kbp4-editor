@@ -1,0 +1,52 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.k-board-pro-4-keys {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
+}
+.k-board-pro-4-keys canvas {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.k-board-pro-4-keys svg {
+  position: relative;
+  display: block;
+}
+.k-board-pro-4-keys path {
+  cursor: pointer;
+  fill: transparent;
+  /* stroke: #efefef99; */
+  stroke: #ababab;
+  stroke-width: 0.5px;
+}
+
+.k-board-pro-4-keys path[data-type=white].active {
+  fill: #efefef;
+}
+.k-board-pro-4-keys path[data-type=blue].active {
+  fill: #040490;
+}
+/* #9a6aad */
+/* #465298aa */
+.k-board-pro-4-keys path[data-type=white].split {
+  stroke: #9a6aad;
+  fill: ##2c2424;
+}
+.k-board-pro-4-keys path[data-type=blue].split {
+  stroke: #9a6aad;
+  fill: ##2c2424;
+}
+
+#KBoardPro4Stems {
+  position: absolute;
+}
+
+#KBoardPro4Stems path {
+  stroke: transparent;
+}

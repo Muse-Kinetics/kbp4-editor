@@ -1,0 +1,19 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.split-slider {
+  margin: 0 5px 0 10px;
+}
+.split-line {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+}
+.slider-handles > div {
+  transition: .5s filter;
+  -webkit-app-region: no-drag;
+}
+.slider-handles > div:hover {
+  filter: drop-shadow(0 0 5px #000);
+  filter: contrast(225%);
+}

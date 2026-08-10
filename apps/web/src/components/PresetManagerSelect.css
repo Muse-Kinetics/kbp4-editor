@@ -1,0 +1,7 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.preset-manager-select {
+  display: flex;
+  flex: 1 1 65%;
+  min-width: 1px;
+}

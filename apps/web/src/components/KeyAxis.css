@@ -1,0 +1,142 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+.key-axes-zones {
+  position: relative;
+  grid-column: 1 / 3;
+  grid-row: 2 / 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0px;
+}
+.key-axis {
+  padding: 20px 10px 0 10px;
+  background-repeat: no-repeat;
+  background-size: 30%;
+  background-position-x: calc(100% - 7px);
+  display: grid;
+  grid-gap: 5px;
+  grid-template-rows: 0.75fr 1fr 1fr 1fr;
+  transition: 800ms all ease;
+}
+.key-axis:hover {
+  filter: drop-shadow(0px 0px 5px #111);
+  text-shadow: 0 0 5px #111;
+}
+.axis-label {
+  font-weight: 100;
+  margin-top: 0;
+  margin-bottom: 0px;
+  transition: 800ms all ease;
+}
+.axis-label:hover {
+  text-shadow: 0 0 5px #000;
+}
+.key-axis input, .key-axis select, .key-axis button {
+  transition: opacity 800ms ease, border 800ms ease;
+  margin-top: 3px;
+}
+.key-axis.off input, .key-axis.off select, .key-axis.off button {
+  border-color: #777;
+}
+.key-axis.axis-x {
+  background-position-y: 9px;
+}
+.lower-zone-active .axis-x {
+  background-image: url(../svg/x-axis-icon.svg);
+}
+.upper-zone-active .axis-x {
+  background-image: url(../svg/x-axis-icon-purple.svg);
+}
+.axis-x.off {
+  background-image: url(../svg/x-axis-icon-off.svg);
+}
+.key-axis.axis-y {
+  background-position-y: 7px;
+}
+.lower-zone-active .axis-y {
+  background-image: url(../svg/y-axis-icon.svg);
+  background-size: 27%;
+}
+.upper-zone-active .axis-y {
+  background-image: url(../svg/y-axis-icon-purple.svg);
+  background-size: 27%;
+}
+.axis-y.off {
+  background-image: url(../svg/y-axis-icon-off.svg);
+}
+.key-axis.axis-z {
+  background-position-y: 10px;
+}
+.lower-zone-active .axis-z {
+  background-image: url(../svg/z-axis-icon.svg);
+  background-size: 27%;
+}
+.upper-zone-active .axis-z {
+  background-image: url(../svg/z-axis-icon-purple.svg);
+  background-size: 27%;
+}
+.axis-z.off {
+  background-image: url(../svg/z-axis-icon-off.svg);
+}
+.keys-label {
+  grid-column: 1 / -1;
+}
+.key-axis-select-label {
+  grid-column: 1/ -1;
+}
+.key-axis-mode-label {
+  grid-column: 1 / -1;
+}
+.has-cc .key-axis-mode-label {
+  grid-column: 1 / 3;
+}
+.key-axis-mode {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+  align-items: end;
+}
+.key-axis-cc-label {
+  grid-column: 3 / -1;
+  align-self: end;
+}
+.key-axis-params {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+.key-axis-curves-zero {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+.key-axis-curves-zero .key-axis-curve-label {
+  grid-column: 1 / 3;
+}
+.axis-y .key-axis-curves-zero .key-axis-curve-label {
+  grid-column: 1 / 2;
+}
+.axis-z .key-axis-curves-zero .key-axis-curve-label {
+  grid-column: 1 / 2;
+}
+.key-axis-invert .button {
+  margin-top: 3px;
+  text-transform: capitalize;
+  font-size: 11px;
+  line-height: 15px;
+}
+.key-axis-curve-label.off-label, .key-axis-zero-on-release-label.off-label {
+  opacity: 0.35;
+}
+.key-axis-curve-label.off-label select, .key-axis-zero-on-release-label.off-label select {
+  background-color: #2d2d2d;
+}
+.key-axis-invert.off-label button {
+  background-color: #2d2d2d;
+}
+.upper-zone-active button.toggled {
+  background-color: #9a6aad;
+}

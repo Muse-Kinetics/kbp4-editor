@@ -1,0 +1,70 @@
+/* SPDX-License-Identifier: MPL-2.0 */
+/* Copyright (c) 2026 KMI Music, Inc. */
+:root {
+  --editor-bg-color: #2d2d2d;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100;
+  src:
+    local('Lato Thin '),
+    local('Lato-Thin'),
+    url('./fonts/lato-thin-100.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src:
+    local('Lato Light '),
+    local('Lato-Light'),
+    url('./fonts/lato-regular-300.woff2') format('woff2');
+}
+
+body, html {
+  background-color: var(--editor-bg-color);
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  color: white;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.42857;
+  -webkit-app-region: drag;
+}
+
+body {
+  padding: 10px 0 10px 0;
+}
+
+/* Tooltips are informational only — never let them capture the mouse and block
+   clicks on the UI beneath them (react-tooltip's clickable mode otherwise
+   overlays controls, e.g. the tooltips toggle itself). */
+.__react_component_tooltip {
+  pointer-events: none !important;
+}
+
+.editor {
+  /* max-width: 1000px; */
+  width: 1000px;
+  margin: 0 auto;
+}
+.editor.windows {
+  /* max-width: 1000px; */
+  width: 1000px;
+}
+/* desktop macOS only: shift content down so the Presets pane clears the
+   overlaid traffic-light buttons of the frameless (titleBarStyle: hidden)
+   window. Paired with +15px window height in apps/desktop/index.js. */
+.editor.mac {
+  padding-top: 15px;
+}

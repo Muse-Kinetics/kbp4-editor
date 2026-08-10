@@ -1,0 +1,10 @@
+node_modules/
+build/
+dist/
+release/
+dll/
+.env
+.buddy-project/
+*.log
+.DS_Store
+apps/desktop/renderer/

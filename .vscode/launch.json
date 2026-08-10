@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "KBP4: Launch Desktop",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run start",
+      "cwd": "${workspaceFolder}/apps/desktop"
+    },
+    {
+      "name": "KBP4: Debug Desktop (Main Process)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/apps/desktop",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "windows": {
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+      },
+      "program": "${workspaceFolder}/apps/desktop/index.js",
+      "preLaunchTask": "KBP4: Build Desktop (Sync Renderer)",
+      "outputCapture": "std"
+    }
+  ]
+}
