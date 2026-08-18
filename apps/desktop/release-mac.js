@@ -90,6 +90,34 @@ function buildUniversalApp() {
     ensureExists(appPath, "Universal mac app");
 }
 
+// electron-builder only writes Contents/Resources/app-update.yml for darwin when
+// the build targets include "dmg" or "zip" (PublishManager afterPack). This
+// workflow packs with `--dir` (target "dir") and then wraps the DMG with
+// `--prepackaged`, so neither pass emits it — electron-updater then fails
+// "Check For Updates" with ENOENT: app-update.yml. Write it ourselves, from the
+// generic publish entry, BEFORE signing so it lives inside the signed/notarized
+// bundle. The generic feed (not the private GitHub repo) is the public updater
+// channel; electron-updater can't fetch releases from a private repo.
+function writeAppUpdateYml() {
+    ensureExists(appPath, "Universal mac app");
+    const publishEntries = [].concat(packageJson.build?.publish || []);
+    const generic = publishEntries.find((entry) => entry && entry.provider === "generic");
+    if (!generic || !generic.url) {
+        throw new Error("No generic publish url in package.json build.publish — cannot write app-update.yml");
+    }
+    const feedUrl = generic.url.replace(/\$\{os\}/g, "mac");
+    const config = {
+        provider: "generic",
+        url: feedUrl,
+        updaterCacheDirName: "k-board-pro-4-editor-desktop-updater",
+    };
+    const resourcesDir = path.join(appPath, "Contents", "Resources");
+    ensureExists(resourcesDir, "app Resources directory");
+    const ymlPath = path.join(resourcesDir, "app-update.yml");
+    fs.writeFileSync(ymlPath, yaml.dump(config, { lineWidth: 120 }));
+    console.log(`>> wrote app-update.yml -> ${feedUrl}`);
+}
+
 function signApp() {
     ensureExists(appPath, "Universal mac app");
     ensureExists(entitlementsPath, "mac entitlements");
@@ -193,6 +221,7 @@ function regenerateChannelMetadata(dmgPath) {
             ensureExists(appPath, "Universal mac app");
         }
 
+        writeAppUpdateYml();
         signApp();
         verifyApp();
 

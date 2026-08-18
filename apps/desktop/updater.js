@@ -9,7 +9,7 @@
 // the Electron app is ready (the autoUpdater getter instantiates on require).
 //
 
-const { BrowserWindow, dialog } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 
 let autoUpdater;
 let updater;
@@ -19,6 +19,11 @@ function getAutoUpdater() {
 
   autoUpdater = require('electron-updater').autoUpdater;
   autoUpdater.autoDownload = false;
+
+  // When run unpackaged (npm start), electron-updater otherwise skips the check
+  // entirely. Force it to read dev-app-update.yml so "Check For Updates" can be
+  // exercised against the live feed without building a DMG. No-op once packaged.
+  autoUpdater.forceDevUpdateConfig = !app.isPackaged;
 
   autoUpdater.on('error', (error) => {
     dialog.showErrorBox('Error: ', error == null ? 'unknown' : (error.stack || error).toString());

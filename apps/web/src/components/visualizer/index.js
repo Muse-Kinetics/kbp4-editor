@@ -5,7 +5,7 @@
 // import Particles from './Particles'
 import PressureCirclesDashed from './PressureCirclesDashed'
 
-import { parsePitchBend, convertRange, getMIDIRange, isInStem, getStemMode, getKeyByValue as getAxis } from '../../utilities'
+import { parsePitchBend, convertRange, getMIDIRange, isInStem, getStemMode, getKeyByValue as getAxis, setCanvasDimensions } from '../../utilities'
 import bendRangeTable from '../../constants/pitchBendRangeTable'
 import draw from './draw'
 
@@ -14,21 +14,47 @@ const Sprite = PressureCirclesDashed
 
 let updatePixelDensity = false
 
-// this is for Visualzier key clipping when switching between screen resolutions
-const mm = window.matchMedia('screen and (min-resolution: 2dppx)')
+// Keep the visualizer canvas correct across devicePixelRatio changes — e.g. when
+// the editor window is dragged to a monitor with a different pixel density.
+//
+// Two things must happen on a DPR change, and the old code did only the second:
+//   1. Resize the canvas *backing store* (canvas.width/height = CSS size × DPR).
+//      Setting width/height also resets the 2D context transform to identity.
+//   2. Re-apply context.scale(DPR) so CSS-pixel draw coordinates map to the new
+//      backing store. Without #1 the store stays sized for the old DPR and the
+//      pressure dots render at the wrong scale/position on the other monitor.
+//
+// matchMedia is registered for the *current* resolution and re-registered on
+// each change, so any display-to-display transition is caught (the previous
+// fixed `min-resolution: 2dppx` query only fired when crossing that one line).
+function applyPixelRatio() {
+  const canvas = document.querySelector('canvas')
+  if (!canvas) return
+  setCanvasDimensions() // (1) resize backing store; resets ctx transform to identity
+  const ctx = canvas.getContext('2d')
+  ctx.setTransform(1, 0, 0, 1, 0, 0)
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio) // (2) re-apply DPR scale
+}
 
-// listen for screen DPI changes
-mm.addEventListener("change", (e) => {
+function onPixelRatioChange() {
+  applyPixelRatio()
+  // Re-apply on the next frame: on some platforms the resolution change event can
+  // fire a beat before the window's layout finishes settling at the new density,
+  // which would otherwise leave the backing store sized for the in-between state.
+  requestAnimationFrame(applyPixelRatio)
+  console.log(`>> K-Board Pro 4 Editor: devicePixelRatio changed -> ${window.devicePixelRatio}`)
+  // Also refresh any already-active sprites on their next draw (belt-and-suspenders).
   updatePixelDensity = true
+  watchPixelRatio()
+}
 
-  if (e.matches) {
-    /* devicePixelRatio >= 2 */
-    console.log('devicePixelRatio >= 2')
-  } else {
-    /* devicePixelRatio < 2 */
-    console.log('devicePixelRatio < 2')
-  }
-});
+let pixelRatioQuery
+function watchPixelRatio() {
+  if (pixelRatioQuery) pixelRatioQuery.removeEventListener('change', onPixelRatioChange)
+  pixelRatioQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`)
+  pixelRatioQuery.addEventListener('change', onPixelRatioChange)
+}
+watchPixelRatio()
 /*
 const axisModeOptions = [
   { label: 'Off', value: 0 },

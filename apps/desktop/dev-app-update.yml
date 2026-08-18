@@ -1,0 +1,9 @@
+# Dev-only update feed config. electron-updater reads this (instead of the
+# packaged Contents/Resources/app-update.yml) when the app is run unpackaged and
+# autoUpdater.forceDevUpdateConfig is true — see updater.js. It lets "Check For
+# Updates" be exercised from a `npm start` run without building a DMG.
+#
+# Mirrors the generic feed baked into packaged builds by release-mac.js.
+provider: generic
+url: 'https://files.keithmcmillen.com/products/k-board-pro-4/editor/mac'
+updaterCacheDirName: k-board-pro-4-editor-desktop-updater

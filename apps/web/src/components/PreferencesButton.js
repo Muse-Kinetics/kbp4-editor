@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MPL-2.0
 // Copyright (c) 2026 KMI Music, Inc.
-// import { ipcRenderer } from 'electron'
-// import isElectron from 'is-electron'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -15,11 +13,14 @@ import {
 
 class PreferencesButton extends Component {
   componentDidMount() {
-    // if(isElectron()) ipcRenderer.on('preferences', (event, value) => this.props.onOpenPreferences())
+    // In the desktop app the native menu (macOS "Preferences", Windows "Settings")
+    // sends the 'preferences' IPC channel; open the same preferences modal so the
+    // menu item and the on-screen button are aliases for one another.
+    if(window.ipcRenderer) window.ipcRenderer.on('preferences', () => this.props.onOpenPreferences())
   }
 
-  componentWillUnmountMount() {
-    // if(isElectron()) ipcRenderer.off('preferences', (event, value) => this.props.onOpenPreferences())
+  componentWillUnmount() {
+    if(window.ipcRenderer) window.ipcRenderer.off('preferences')
   }
 
   render() {

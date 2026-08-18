@@ -106,7 +106,9 @@ label.disabled {
 .label-button.disabled {
   color: rgba(255,255,255,0.5);
 }
-/* browser button */
+/* preferences button — shown in both the web and desktop editors. In the
+   desktop app it is an on-screen alias for the native Preferences/Settings menu
+   command. */
 button.preferences {
   position: absolute;
   top: -36px;
@@ -114,8 +116,12 @@ button.preferences {
   width: 100px;
   border-color: white;
   border-radius: 3px;
+  -webkit-app-region: no-drag;
 }
 
+/* In the desktop layout the keyboard section has no border and the header is
+   inset by 10px, so the web's -3px (which compensates for the section's 3px
+   border) lands the button left of the PRESETS box. Align it with that box. */
 .electron button.preferences {
-  display: none;
+  left: 10px;
 }
