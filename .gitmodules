@@ -1,0 +1,3 @@
+[submodule "sendsysex"]
+	path = sendsysex
+	url = git@github.com:Muse-Kinetics/sendsysex.git
