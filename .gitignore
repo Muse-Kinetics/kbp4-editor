@@ -8,3 +8,5 @@ dll/
 *.log
 .DS_Store
 apps/desktop/renderer/
+# generated fresh per-platform by apps/desktop/updater.js before each dev run
+apps/desktop/dev-app-update.yml
