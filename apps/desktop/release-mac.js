@@ -197,15 +197,22 @@ function regenerateChannelMetadata(dmgPath) {
     ensureExists(channelPath, "latest-mac.yml channel file");
 
     const channel = yaml.load(fs.readFileSync(channelPath, "utf8"));
-    const dmgName = path.basename(dmgPath);
+
+    // Match the dmg entry by extension, NOT by exact filename: electron-builder
+    // writes the yml url with spaces replaced by hyphens (e.g. "K-Board-Pro-4-
+    // Editor-…dmg") while the on-disk basename keeps its spaces, so an equality
+    // check never matches and the post-staple sha512/size silently never land in
+    // the yml. There is exactly one dmg per channel, so updating every .dmg entry
+    // (and the top-level path) is unambiguous.
+    const isDmg = (name) => typeof name === "string" && name.toLowerCase().endsWith(".dmg");
 
     if (Array.isArray(channel.files)) {
         channel.files = channel.files.map((file) =>
-            file && file.url === dmgName ? { ...file, sha512, size } : file
+            file && isDmg(file.url) ? { ...file, sha512, size } : file
         );
     }
 
-    if (channel.path === dmgName) {
+    if (isDmg(channel.path)) {
         channel.sha512 = sha512;
     }
 
