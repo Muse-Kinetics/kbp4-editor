@@ -19,41 +19,33 @@ let updater;
 // Dev-only (see writeDevUpdateConfig below): electron-updater always reads a
 // fixed "dev-app-update.yml" path (app.getAppPath()/dev-app-update.yml) when
 // forceDevUpdateConfig is set — it can't be told to look elsewhere per
-// platform. mac and Windows packaged builds intentionally check different
-// feeds (see writeDevUpdateConfig's comments), so this file has to be
-// (re)written for whichever platform is actually running right before
-// forceDevUpdateConfig is enabled, instead of being a static checked-in file
-// — a static file can only ever be correct for one platform at a time.
+// platform, and the feed URL itself is platform-specific (.../editor/mac vs
+// .../editor/win — see below), so this file has to be (re)written for
+// whichever platform is actually running right before forceDevUpdateConfig
+// is enabled, instead of being a static checked-in file that can only ever
+// be correct for one platform at a time.
 function writeDevUpdateConfig() {
   const yaml = require('js-yaml');
   const packageJson = require('./package.json');
   const publishEntries = [].concat(packageJson.build?.publish || []);
 
-  let config;
-  if (process.platform === 'darwin') {
-    // Matches release-mac.js's writeAppUpdateYml(): the generic feed, not
-    // GitHub — electron-updater needs public, unauthenticated access to it.
-    const generic = publishEntries.find((entry) => entry && entry.provider === 'generic');
-    config = {
-      provider: 'generic',
-      url: generic.url.replace(/\$\{os\}/g, 'mac'),
-      updaterCacheDirName: 'k-board-pro-4-editor-desktop-updater',
-    };
-  } else {
-    // Matches what electron-builder itself auto-writes into a packaged
-    // Windows build's resources/app-update.yml (the publish array's first
-    // entry, github) — Windows isn't overridden away from that default the
-    // way mac deliberately is, so mirror it rather than invent a different
-    // dev-only feed.
-    const github = publishEntries.find((entry) => entry && entry.provider === 'github');
-    config = {
-      provider: 'github',
-      owner: github.owner,
-      repo: github.repo,
-      updaterCacheDirName: 'kbp4-editor-desktop-updater',
-      publisherName: ['KMI Music, Inc.'],
-    };
-  }
+  // Both platforms use the generic feed, never GitHub: electron-updater's
+  // in-app check is unauthenticated, and the GitHub repo is private (a
+  // private-repo GitHub check 404s with "please double check your
+  // authentication token" - confirmed live on Windows). Matches
+  // release-mac.js's writeAppUpdateYml(), and matches build.publish's array
+  // order (package.json) - generic listed first specifically so
+  // electron-builder's own app-update.yml auto-write for packaged Windows
+  // builds (which always takes publishConfigs[0]) picks it too, not just this
+  // dev-only path.
+  const generic = publishEntries.find((entry) => entry && entry.provider === 'generic');
+  const config = {
+    provider: 'generic',
+    url: generic.url.replace(/\$\{os\}/g, process.platform === 'darwin' ? 'mac' : 'win'),
+    updaterCacheDirName: process.platform === 'darwin'
+      ? 'k-board-pro-4-editor-desktop-updater'
+      : 'kbp4-editor-desktop-updater',
+  };
 
   fs.writeFileSync(path.join(__dirname, 'dev-app-update.yml'), yaml.dump(config, { lineWidth: 120 }));
 }

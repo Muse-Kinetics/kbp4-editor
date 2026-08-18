@@ -51,13 +51,13 @@
     ],
     "publish": [
       {
+        "provider": "generic",
+        "url": "https://files.keithmcmillen.com/products/k-board-pro-4/editor/${os}"
+      },
+      {
         "provider": "github",
         "owner": "Muse-Kinetics",
         "repo": "kbp4-editor"
-      },
-      {
-        "provider": "generic",
-        "url": "https://files.keithmcmillen.com/products/k-board-pro-4/editor/${os}"
       }
     ],
     "mac": {
