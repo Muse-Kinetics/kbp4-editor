@@ -3,6 +3,7 @@
   "productName": "K-Board Pro 4 Editor",
   "version": "1.4.0",
   "description": "Electron desktop editor for K-Board Pro 4",
+  "license": "MPL-2.0",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron .",

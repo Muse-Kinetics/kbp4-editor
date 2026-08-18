@@ -2,6 +2,7 @@
   "name": "kbp4-editor-monorepo",
   "version": "1.4.0",
   "private": true,
+  "license": "MPL-2.0",
   "workspaces": [
     "apps/web",
     "apps/desktop",

@@ -11,3 +11,4 @@ Trademarks: "K-Board", "K-Board Pro 4", "KMI", "KMI Music", and "Muse Kinetics",
 Third-party notices:
 - apps/desktop retains the upstream Electron React Boilerplate MIT license notice for any code and templates derived from that project.
 - The bundled UI font is Lato (https://www.latofonts.com), Copyright (c) 2010-2014 by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato", licensed under the SIL Open Font License 1.1.
+- apps/desktop/resources/sendsysex bundles the "Send SysEx" command-line utility (https://github.com/Muse-Kinetics/sendsysex), Copyright (c) 2023 Eric Bateman, licensed under the MIT License. Its full license text is retained at apps/desktop/resources/sendsysex/LICENSE.
