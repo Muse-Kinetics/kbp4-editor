@@ -4,3 +4,8 @@
 *.jpeg binary
 *.ico binary
 *.icns binary
+*.exe binary
+*.dll binary
+*.syx binary
+*.dmg binary
+*.blockmap binary

@@ -14,6 +14,11 @@ const path = require('path');
 const { app, ipcMain, BrowserWindow, dialog, shell } = require('electron');
 const MenuBuilder = require('./menu');
 
+// Windows-only: WebMIDI can't drive a K-Board Pro 4 firmware update safely
+// there (see firmware/kbp4-firmware-update-process.md), so Windows shells out
+// to a bundled sendsysex instead. macOS never requires this module at all.
+const firmwareUpdate = process.platform === 'win32' ? require('./firmwareUpdate') : null;
+
 let mainWindow = null;
 
 const windowOptions = {
@@ -44,10 +49,15 @@ if (process.platform === 'darwin') {
   windowOptions.height = 708;
   windowOptions.minHeight = 708;
 } else if (process.platform === 'win32') {
-  windowOptions.height = 760;
-  windowOptions.width = 1017;
-  windowOptions.minWidth = 1017;
-  windowOptions.minHeight = 760;
+  // Previously an exact-fit 1017x760 with zero margin around the actual
+  // content size — DPI-scaling rounding (measured content viewport varying
+  // ~1001-1031 wide / 722-732 tall across otherwise-identical launches) could
+  // tip that into showing scrollbars. Sized with real margin instead of an
+  // exact fit so that jitter doesn't matter.
+  windowOptions.height = 780;
+  windowOptions.width = 1040;
+  windowOptions.minWidth = 1040;
+  windowOptions.minHeight = 780;
 } else if (process.platform === 'linux') {
   windowOptions.width = 1064;
 }
@@ -93,6 +103,14 @@ function createWindow() {
   // Guarded to http(s) so the renderer can't ask the OS to open arbitrary URIs.
   ipcMain.on('open-external', (e, url) => {
     if (typeof url === 'string' && /^https?:\/\//i.test(url)) shell.openExternal(url);
+  });
+  // Windows-only firmware update, via bundled sendsysex — see firmwareUpdate.js.
+  // No-op if this somehow fires on another platform (firmwareUpdate is null there).
+  ipcMain.on('firmware-update-sendsysex', () => {
+    if (!firmwareUpdate || !mainWindow) return;
+    firmwareUpdate.startFirmwareUpdate(mainWindow, (code) => {
+      if (mainWindow) mainWindow.webContents.send('firmware-update-sendsysex-done', { code });
+    });
   });
 
   mainWindow.on('unresponsive', () => {

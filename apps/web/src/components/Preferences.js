@@ -27,6 +27,8 @@ import {
   toggleAutohideZoneSlider,
   openPreferences,
   fetchFirmware,
+  firmwareUpdateComplete,
+  firmwareUpdateError,
   resetDevice,
   downloadUserPresets,
   setStatusMessage,
@@ -48,6 +50,13 @@ class Preferences extends Component {
       window.ipcRenderer.on('toggle-tooltips', (event, value) => this.props.onToggleTooltips(value))
       window.ipcRenderer.on('preset-export', () => this.props.onDownloadUserPresets())
       window.ipcRenderer.on('firmware-update', () => this.props.onFetchFirmware(this.props.availableFirmware.url))
+      // Windows only: main process reports back once the bundled sendsysex
+      // process (its own log window) exits. See deviceActions.js's
+      // firmwareUpdateViaSendSysEx / apps/desktop/firmwareUpdate.js.
+      window.ipcRenderer.on('firmware-update-sendsysex-done', (event, { code }) => {
+        if(code === 0) this.props.onFirmwareUpdateComplete()
+        else this.props.onFirmwareUpdateError(`The bundled firmware updater exited with code ${code}. See the update window for details.`)
+      })
       window.ipcRenderer.on('installing-update', () => {
         this.props.onSetStatusMessage('Downloading Editor')
         this.props.onSetEditorUpdatingStatus()
@@ -78,6 +87,7 @@ class Preferences extends Component {
       window.ipcRenderer.removeAllListeners('toggle-tooltips')
       window.ipcRenderer.removeAllListeners('preset-export')
       window.ipcRenderer.removeAllListeners('firmware-update')
+      window.ipcRenderer.removeAllListeners('firmware-update-sendsysex-done')
       window.ipcRenderer.removeAllListeners('installing-update')
       window.ipcRenderer.removeAllListeners('download-progress')
     }
@@ -334,6 +344,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onFetchFirmware: (url) => {
       dispatch(fetchFirmware(url))
+    },
+    onFirmwareUpdateComplete: () => {
+      dispatch(firmwareUpdateComplete())
+    },
+    onFirmwareUpdateError: (message) => {
+      dispatch(firmwareUpdateError(message))
     },
     onSetStatusMessage: (status) => {
       dispatch(setStatusMessage(status))

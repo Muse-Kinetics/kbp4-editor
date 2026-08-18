@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<!-- Copyright (c) 2026 KMI Music, Inc. -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>K-Board Pro 4 Firmware Update</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: #1e1e1e; color: #e6e6e6;
+    font-family: -apple-system, Segoe UI, sans-serif;
+  }
+  body { display: flex; flex-direction: column; }
+  .banner {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    background: #3a2f00;
+    color: #ffcf4d;
+    border-bottom: 1px solid #4a3d00;
+  }
+  .banner.done.success { background: #0f3320; color: #6dffcf; border-bottom-color: #1c5a3c; }
+  .banner.done.failure { background: #3a1414; color: #ff8a8a; border-bottom-color: #5a1c1c; }
+  pre#log {
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 12px 16px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: Consolas, Menlo, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .footer {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    text-align: right;
+    border-top: 1px solid #333;
+  }
+  button {
+    padding: 7px 18px;
+    border: none;
+    border-radius: 3px;
+    background: #04aef0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:disabled { background: #444; color: #888; cursor: default; }
+</style>
+</head>
+<body>
+  <div class="banner" id="banner">Updating firmware — do not unplug your K-Board Pro 4…</div>
+  <pre id="log"></pre>
+  <div class="footer">
+    <button id="closeBtn" disabled>Please Wait…</button>
+  </div>
+  <script>
+    const logEl = document.getElementById('log');
+    const bannerEl = document.getElementById('banner');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Keep the whole raw stream and re-derive the display from it on every
+    // chunk, rather than parsing incrementally — sendsysex's own output uses
+    // real Windows \r\n line endings for ordinary status lines, and *also*
+    // \r-only (no \n) redraws for its live progress bar. Normalizing \r\n -> \n
+    // first (so ordinary lines are never mistaken for a redraw) only works
+    // correctly if it's applied to the complete buffer - node's stdout chunks
+    // can split a \r\n pair across two separate 'data' events, so normalizing
+    // per-chunk missed that boundary case.
+    let raw = '';
+
+    // sendsysex redraws its progress bar in place with a lone \r, like a real
+    // terminal. Mimic that instead of dumping thousands of overwritten
+    // fragments as separate lines.
+    function collapseCR(line) {
+      const idx = line.lastIndexOf('\r');
+      return idx === -1 ? line : line.slice(idx + 1);
+    }
+
+    function render() {
+      const lines = raw.replace(/\r\n/g, '\n').split('\n');
+      const current = lines.pop();
+      logEl.textContent = lines.map(collapseCR).join('\n') + (lines.length ? '\n' : '') + collapseCR(current);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    window.firmwareUpdate.onData((chunk) => {
+      raw += chunk;
+      render();
+    });
+
+    window.firmwareUpdate.onDone(({ code }) => {
+      const success = code === 0;
+      bannerEl.classList.add('done', success ? 'success' : 'failure');
+      bannerEl.textContent = success
+        ? 'Firmware update complete — you may close this window.'
+        : `Firmware update failed (exit code ${code}) — you may close this window.`;
+      closeBtn.disabled = false;
+      closeBtn.textContent = 'Close';
+      closeBtn.onclick = () => window.close();
+    });
+  </script>
+</body>
+</html>

@@ -49,6 +49,9 @@ export const FIRMWARE_UPDATE_ERROR = 'FIRMWARE_UPDATE_ERROR'
 // {type:FIRMWARE_UPDATE_ERROR, message: '...'}
 export const FIRMWARE_UPDATE_DISMISS = 'FIRMWARE_UPDATE_DISMISS'
 // {type:FIRMWARE_UPDATE_DISMISS}
+export const FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM = 'FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM'
+// {type:FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM} — browser (non-Electron) on Windows can't
+// safely drive a K-Board Pro 4 firmware update over WebMIDI; see fetchFirmware's guard.
 
 // Device - Global
 export const DEVICE_REQUEST_FIRMWARE_VERSIONS = 'DEVICE_REQUEST_FIRMWARE_VERSIONS'

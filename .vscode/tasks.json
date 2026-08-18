@@ -21,6 +21,17 @@
       "presentation": { "reveal": "always", "panel": "dedicated" }
     },
     {
+      "label": "KBP4: Launch Desktop (Debug — CDP port 9222)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "start:debug"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "isBackground": true,
+      "detail": "Opens --remote-debugging-port=9222 for use with apps/desktop/tools/cdp.js. Dev only.",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
       "label": "KBP4: Build Web",
       "type": "shell",
       "command": "npm",
@@ -71,7 +82,16 @@
       "command": "npm",
       "args": ["run", "package-win"],
       "options": { "cwd": "${workspaceFolder}/apps/desktop" },
-      "detail": "Requires local signtool.exe and the KMI Music, Inc. code-signing cert (see apps/desktop/signWindows.js).",
+      "detail": "Signed NSIS installer (requires the KMI code-signing cert's private key to be accessible — see apps/desktop/RELEASING.md).",
+      "problemMatcher": []
+    },
+    {
+      "label": "KBP4: Make Windows Installer (Unsigned)",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "package-win-unsigned"],
+      "options": { "cwd": "${workspaceFolder}/apps/desktop" },
+      "detail": "Unsigned NSIS installer — always available regardless of cert/private-key access (see apps/desktop/RELEASING.md).",
       "problemMatcher": []
     },
     {

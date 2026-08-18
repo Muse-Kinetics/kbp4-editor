@@ -5,12 +5,15 @@
   "description": "Electron desktop editor for K-Board Pro 4",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development electron .",
+    "start": "cross-env NODE_ENV=development electron .",
+    "start:debug": "cross-env NODE_ENV=development electron . --remote-debugging-port=9222",
+    "cdp": "node tools/cdp.js",
     "sync-renderer": "node sync-renderer.js",
     "package-mac": "node release-mac.js --skip-notarize",
     "package-mac-dist": "node release-mac.js",
     "notarize-dmg": "node release-mac.js --skip-build --skip-package",
     "package-win": "npm run sync-renderer && electron-builder build --win --x64 --publish never",
+    "package-win-unsigned": "npm run sync-renderer && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder build --win --x64 --publish never",
     "publish-github-mac": "node publish-github.js --platform mac",
     "publish-github-win": "node publish-github.js --platform win"
   },
@@ -19,9 +22,10 @@
   },
   "devDependencies": {
     "@electron/notarize": "^2.3.2",
+    "cross-env": "^10.1.0",
+    "dotenv": "^16.4.5",
     "electron": "^29.4.6",
     "electron-builder": "^23.0.3",
-    "dotenv": "^16.4.5",
     "js-yaml": "^4.1.0",
     "node-fetch": "^3.3.2",
     "octokit": "^3.1.2"
@@ -38,6 +42,9 @@
       "menu.js",
       "updater.js",
       "preload.js",
+      "firmwareUpdate.js",
+      "firmwareUpdatePreload.js",
+      "firmwareUpdateWindow.html",
       "renderer/**/*",
       "package.json"
     ],
@@ -72,7 +79,10 @@
     },
     "win": {
       "certificateSha1": "66AEF8ACBDC187562BA7AF2FEC2B070DE1612267",
-      "target": [{ "target": "nsis", "arch": ["x64"] }]
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "extraResources": [
+        { "from": "resources/sendsysex", "to": "sendsysex" }
+      ]
     },
     "directories": {
       "buildResources": "resources",

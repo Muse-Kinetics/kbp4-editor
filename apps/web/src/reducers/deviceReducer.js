@@ -16,6 +16,7 @@ import {
   FIRMWARE_UPDATE_COMPLETE,
   FIRMWARE_UPDATE_ERROR,
   FIRMWARE_UPDATE_DISMISS,
+  FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM,
   SET_BOOTLOADER_MODE
 } from '../actions/actionTypes'
 
@@ -98,6 +99,12 @@ export default function deviceReducer(state = initialState.device, action) {
         firmwareStage: 'idle',
         firmwareBoardsUpdated: 0,
         firmwareError: null
+      }
+    case FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM:
+      return {
+        ...state,
+        updatingFirmware: false,
+        firmwareStage: 'unsupported'
       }
     case SET_BOOTLOADER_MODE:
       return {

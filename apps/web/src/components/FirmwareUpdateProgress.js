@@ -9,6 +9,9 @@ import { firmwareUpdateDismiss } from '../actions'
 import './FirmwareUpdateProgress.css'
 
 const SUPPORT_URL = 'https://support.musekinetics.com/'
+// desktop editor releases — same GitHub repo this project publishes itself to
+// (see apps/desktop/package.json's build.publish GitHub provider).
+const DESKTOP_EDITOR_URL = 'https://github.com/Muse-Kinetics/kbp4-editor/releases/latest'
 
 // Progress mapping (per product spec):
 //   central board  -> 0-50%
@@ -73,20 +76,24 @@ class FirmwareUpdateProgress extends Component {
       case 'peripheral': return `Updating octaves — ${firmwareBoardsUpdated} of ${firmwareBoardsExpected}`
       case 'complete': return 'Firmware update complete!'
       case 'error': return this.props.firmwareError
+      case 'unsupported': return 'Firmware updates aren\'t supported from a web browser on Windows. Please download the K-Board Pro 4 desktop editor to update your firmware.'
       default: return 'Preparing firmware update…'
     }
   }
 
-  // open the support site (system browser under Electron, new tab in a browser)
-  // then dismiss the popup — wired to the error-state button.
-  handleGetSupport = () => {
+  // open an external link (system browser under Electron, new tab in a browser)
+  // then dismiss the popup — wired to the error/unsupported-state buttons.
+  openExternal = (url) => {
     if(window.ipcRenderer && typeof window.ipcRenderer.send === 'function') {
-      window.ipcRenderer.send('open-external', SUPPORT_URL)
+      window.ipcRenderer.send('open-external', url)
     } else {
-      window.open(SUPPORT_URL, '_blank', 'noopener,noreferrer')
+      window.open(url, '_blank', 'noopener,noreferrer')
     }
     this.props.onDismiss()
   }
+
+  handleGetSupport = () => this.openExternal(SUPPORT_URL)
+  handleDownloadDesktopEditor = () => this.openExternal(DESKTOP_EDITOR_URL)
 
   render() {
     const { firmwareStage, onDismiss } = this.props
@@ -94,22 +101,30 @@ class FirmwareUpdateProgress extends Component {
 
     const isError = firmwareStage === 'error'
     const isComplete = firmwareStage === 'complete'
+    const isUnsupported = firmwareStage === 'unsupported'
     const pct = this.percent()
 
     return (
       <div className="firmware-update-overlay">
-        <div className={classnames('firmware-update-message', { error: isError, complete: isComplete })}>
+        <div className={classnames('firmware-update-message', { error: isError, complete: isComplete, unsupported: isUnsupported })}>
           <div className="firmware-update-title">
-            { isError ? 'Firmware Update Failed' : isComplete ? 'Firmware Updated' : 'Firmware Updating…' }
+            { isError ? 'Firmware Update Failed'
+              : isComplete ? 'Firmware Updated'
+              : isUnsupported ? 'Desktop Editor Required'
+              : 'Firmware Updating…' }
           </div>
           <div className="firmware-update-progress-label">{this.label()}</div>
-          <div className="firmware-update-progress">
-            <div
-              className={classnames('firmware-update-progress-bar', { error: isError })}
-              style={{ width: `${pct}%` }}
-            />
-          </div>
-          <div className="firmware-update-progress-meta">{Math.round(pct)}%</div>
+          { !isUnsupported &&
+            <>
+              <div className="firmware-update-progress">
+                <div
+                  className={classnames('firmware-update-progress-bar', { error: isError })}
+                  style={{ width: `${pct}%` }}
+                />
+              </div>
+              <div className="firmware-update-progress-meta">{Math.round(pct)}%</div>
+            </>
+          }
 
           { isError &&
             <button className="firmware-update-button" onClick={this.handleGetSupport}>
@@ -120,6 +135,16 @@ class FirmwareUpdateProgress extends Component {
             <button className="firmware-update-button" onClick={onDismiss}>
               Done
             </button>
+          }
+          { isUnsupported &&
+            <>
+              <button className="firmware-update-button" onClick={this.handleDownloadDesktopEditor}>
+                Download Desktop Editor
+              </button>
+              <button className="firmware-update-button secondary" onClick={onDismiss}>
+                Close
+              </button>
+            </>
           }
         </div>
       </div>

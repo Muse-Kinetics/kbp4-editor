@@ -5,7 +5,7 @@ import compareVersions from 'compare-versions'
 
 import paths from '../constants/deviceResourcePaths.js'
 import midiMessageTypesTable from '../constants/midiMessageTypesTable.js'
-import { deviceVersions, asyncFetchBuffer, getBuffer } from '../utilities'
+import { deviceVersions, asyncFetchBuffer, getBuffer, isWindows } from '../utilities'
 
 import {
   DEVICE_UPDATE_FIRMWARE,
@@ -18,6 +18,7 @@ import {
   FIRMWARE_PERIPHERAL_PROGRESS,
   FIRMWARE_UPDATE_ERROR,
   FIRMWARE_UPDATE_DISMISS,
+  FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM,
   PERIPHERAL_READY,
   DEVICE_REQUEST_FIRMWARE_VERSIONS,
   DEVICE_REQUEST_PRESET,
@@ -532,8 +533,48 @@ function getDevicePresets(dispatch, getState) {
   }, 500)
 }
 
+// Firmware update - blocked because we're in a plain browser (no Electron
+// main process to shell out to sendsysex) on Windows. WebMIDI can't do the
+// raw-transport sub-splitting a K-Board Pro 4 firmware flash requires there
+// (see firmware/kbp4-firmware-update-process.md) - sending it as a single
+// monolithic sysex, the only thing WebMIDI's send() can express, fails on
+// Windows. macOS/Linux browsers are unaffected and keep the normal flow.
+export const firmwareUpdateUnsupportedPlatform = () => {
+  return (dispatch) => {
+    console.log('>> K-Board Pro 4: firmware update blocked — browser on Windows can\'t drive this safely, desktop editor required');
+    dispatch({ type: FIRMWARE_UPDATE_UNSUPPORTED_PLATFORM })
+  }
+};
+
+// Firmware update - Windows desktop editor only. Delegates to the bundled
+// sendsysex binary (shelled out from the Electron main process - see
+// apps/desktop/firmwareUpdate.js) instead of WebMIDI, which can't safely
+// drive this device's update on Windows (see the unsupported-platform guard
+// above, and firmware/kbp4-firmware-update-process.md for the full why). The
+// main process opens its own log window and reports back over
+// 'firmware-update-sendsysex-done' (wired in Preferences.js), which reuses
+// the normal firmwareUpdateComplete/firmwareUpdateError actions.
+export const firmwareUpdateViaSendSysEx = () => {
+  return (dispatch) => {
+    console.log('>> K-Board Pro 4: firmware update — delegating to bundled SendSysEx (Windows desktop)');
+    if(window.ipcRenderer && typeof window.ipcRenderer.send === 'function') {
+      window.ipcRenderer.send('firmware-update-sendsysex')
+    }
+  }
+};
+
 export const fetchFirmware = (url) => {
   return (dispatch, getState) => {
+    if(isWindows() && !isElectron()) {
+      dispatch(firmwareUpdateUnsupportedPlatform())
+      return false
+    }
+
+    if(isElectron() && isWindows()) {
+      dispatch(firmwareUpdateViaSendSysEx())
+      return false
+    }
+
     if(url === null) {
       console.log('>> K-Board Pro 4: could not fetch firmware due to a network issue');
       // disable FW button

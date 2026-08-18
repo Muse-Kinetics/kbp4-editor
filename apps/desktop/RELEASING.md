@@ -23,11 +23,27 @@ npm run notarize-dmg       # notarize + staple an already-built DMG
 ## Windows (run on the Windows machine)
 
 ```
-npm run package-win        # build → NSIS installer, signed via signWindows.js
+npm run package-win        # build → sign → NSIS installer
 ```
 
-- `signWindows.js` shells out to a local `signtool.exe` (path hardcoded in the file; adjust per machine), signing every file electron-builder requests (sha1 + sha256 on the installer). Verify with `signtool verify /pa /all /v "<installer>.exe"`.
-- Skip signing for a test build: set `SKIP_WINDOWS_SIGN=1` or drop a `release/.skip-windows-signing` marker.
+- Signing: `win.certificateSha1` in `build` (package.json) names the KMI Music, Inc. code-signing
+  cert by thumbprint. electron-builder finds it in the Windows cert store and signs the app exe and
+  the NSIS installer itself via its built-in signtool integration — no custom hook needed.
+  `signWindows.js` (a standalone custom sign-hook script) is not wired into the build; it predates
+  this and isn't currently used.
+- Requires the cert's private key to actually be accessible at build time (not just present in the
+  store) — signing was disabled for a while specifically because it wasn't, on a remote session with
+  no way to unlock/insert whatever the key is backed by. Verify a build's signature with:
+  `signtool verify /pa /all /v "<installer>.exe"` (or PowerShell's `Get-AuthenticodeSignature`).
+- Unsigned builds stay available as a standing, defined command — don't edit config to get one:
+
+  ```
+  npm run package-win-unsigned
+  ```
+
+  Useful whenever the cert's private key isn't reachable (remote session, key locked/not inserted,
+  etc.) — same build, `CSC_IDENTITY_AUTO_DISCOVERY=false` set so electron-builder never probes the
+  cert store.
 
 ## Test, then publish
 

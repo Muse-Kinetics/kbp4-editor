@@ -13,3 +13,7 @@
 *.woff2 binary
 *.syx binary
 *.svg text
+*.exe binary
+*.dll binary
+*.dmg binary
+*.blockmap binary
