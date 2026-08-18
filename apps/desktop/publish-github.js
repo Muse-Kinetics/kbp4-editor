@@ -119,26 +119,51 @@ if (!releaseExists) {
 
 // GitHub replaces spaces in uploaded asset filenames with dots (e.g. "K-Board
 // Pro 4 Editor-…dmg" -> "K-Board.Pro.4.Editor-…dmg"). electron-builder's
-// latest-mac.yml references the DMG by its build-time name, so electron-updater
-// would construct a 404 download URL. Rewrite the yml's dmg url/path to the
-// dot-form GitHub actually serves before uploading. (mac only.)
-function normalizeMacYmlForGithub() {
-    const ymlPath = path.join(releaseDir, "latest-mac.yml");
-    if (!fs.existsSync(ymlPath)) return;
-    const githubDmg = `${productName.replace(/ /g, ".")}-${version}-universal.dmg`;
+// latest.yml/latest-mac.yml reference assets by their build-time (space-
+// containing) name, so electron-updater would construct a 404 download URL
+// against a GitHub-hosted feed. Rewrite the relevant url/path fields to the
+// dot-form GitHub actually serves before uploading.
+//
+// Uploads a *copy* of ymlPath (same basename, staged in a side directory) with
+// GitHub's dot-form substituted, rather than mutating ymlPath in place - this
+// file doing double duty as the generic (files.keithmcmillen.com) feed's
+// latest.yml too, which intentionally keeps the real space-containing
+// filename (that feed serves assets under their literal on-disk name, unlike
+// GitHub). Overwriting it here would silently break a later generic-feed
+// deploy reusing the same release/ output. `gh release upload` names the
+// remote asset from the local file's basename (its `#label` syntax is only a
+// cosmetic display label, not the asset name) - the copy has to keep the same
+// basename, so it's staged in its own directory rather than a dotfile.
+function normalizedYmlCopyForGithub(ymlName, patternAndReplacement) {
+    const ymlPath = path.join(releaseDir, ymlName);
+    if (!fs.existsSync(ymlPath)) return ymlPath;
     const yml = fs.readFileSync(ymlPath, "utf8");
-    const patched = yml.replace(
-        /((?:url|path):\s*)\S*-universal\.dmg/g,
-        (match, prefix) => `${prefix}${githubDmg}`,
-    );
-    if (patched !== yml) {
-        fs.writeFileSync(ymlPath, patched);
-        console.log(`>> normalized latest-mac.yml dmg url -> ${githubDmg} (GitHub dot-form)`);
-    }
+    const patched = yml.replace(patternAndReplacement[0], patternAndReplacement[1]);
+    if (patched === yml) return ymlPath;
+
+    const stageDir = path.join(releaseDir, ".github-stage");
+    fs.mkdirSync(stageDir, { recursive: true });
+    const copyPath = path.join(stageDir, ymlName);
+    fs.writeFileSync(copyPath, patched);
+    console.log(`>> normalized ${ymlName} for GitHub (dot-form filenames), staged at ${path.relative(releaseDir, copyPath)}`);
+    return copyPath;
 }
 
 if (platform === "mac") {
-    normalizeMacYmlForGithub();
+    const githubDmg = `${productName.replace(/ /g, ".")}-${version}-universal.dmg`;
+    const ymlPath = normalizedYmlCopyForGithub("latest-mac.yml", [
+        /((?:url|path):\s*)\S*-universal\.dmg/g,
+        (match, prefix) => `${prefix}${githubDmg}`,
+    ]);
+    const i = artifactPaths.findIndex((p) => path.basename(p) === "latest-mac.yml");
+    if (i !== -1) artifactPaths[i] = ymlPath;
+} else if (platform === "win") {
+    const ymlPath = normalizedYmlCopyForGithub("latest.yml", [
+        /((?:url|path):\s*)(.+\.exe)$/gm,
+        (match, prefix, filename) => `${prefix}${filename.replace(/ /g, ".")}`,
+    ]);
+    const i = artifactPaths.findIndex((p) => path.basename(p) === "latest.yml");
+    if (i !== -1) artifactPaths[i] = ymlPath;
 }
 
 // --clobber so re-running for the same platform replaces assets instead of failing.
